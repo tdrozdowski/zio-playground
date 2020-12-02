@@ -13,7 +13,7 @@ object Fibers extends App {
 
   val fib100Fiber: UIO[Fiber[Nothing, Long]] =
     for {
-      fiber <- fib(30).fork
+      fiber <- fib(20).fork
     } yield fiber
 
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] =

@@ -6,6 +6,7 @@ import zio.random._
 import zio.duration._
 import zio.clock._
 
+//noinspection SimplifyChainToForInspection
 object Main extends App {
 
   val mySchedule: Schedule[Any, Any, Long] = Schedule.spaced(2.seconds) <* Schedule.recurs(2)
