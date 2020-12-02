@@ -15,5 +15,5 @@ object Json extends App {
   println(s"a banana: $banana")
 
   val anotherBanana = Banana(0.7)
-  println(s"a pretty banana ${banana.toJsonPretty}")
+  println(s"a pretty banana\n${anotherBanana.toJsonPretty}")
 }
