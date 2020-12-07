@@ -32,9 +32,14 @@ object StreamsAndSinks extends App {
 object XformSinks extends App {
 
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = for {
-    stream <- ZIO.effectTotal(ZStream.fromIterable(1 to 10))
+    _ <- putStrLn("contramap example...")
+    stream <- ZIO.effectTotal(ZStream.fromIterable(1 to 100))
     sink <- ZIO.effectTotal(ZSink.collectAll[String].contramap[Int](_.toString + "_id"))
     results <- stream.run(sink)
     _ <- putStrLn(s"Results = ${results.mkString(", ")}")
+    _ <- putStrLn("dimap example...")
+    sink2 <- ZIO.effectTotal(Sink.collectAll[String].dimap[Int, Chunk[String]](_.toString + "_id", _.take(10)))
+    results2 <- stream.run(sink2)
+    _ <- putStrLn(s"Results2 = ${results2.mkString(", ")}")
   } yield ExitCode.success
 }
