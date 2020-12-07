@@ -3,7 +3,7 @@ package dev.xymox.zio.playground
 import zio._
 import zio.console._
 import zio.duration._
-import zio.stream.{ZSink, ZStream}
+import zio.stream.{Sink, ZSink, ZStream}
 
 object Streams extends App {
 
@@ -26,5 +26,15 @@ object StreamsAndSinks extends App {
     sink <- ZIO.effectTotal(ZSink.sum[Int])
     total <- stream.run(sink)
     _ <- putStrLn(s"Sum of the first 1,000,000 Ints is: $total")
+  } yield ExitCode.success
+}
+
+object XformSinks extends App {
+
+  override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = for {
+    stream <- ZIO.effectTotal(ZStream.fromIterable(1 to 10))
+    sink <- ZIO.effectTotal(ZSink.collectAll[String].contramap[Int](_.toString + "_id"))
+    results <- stream.run(sink)
+    _ <- putStrLn(s"Results = ${results.mkString(", ")}")
   } yield ExitCode.success
 }
