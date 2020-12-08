@@ -23,3 +23,20 @@ object Fibers extends App {
       _ <- putStrLn(s"Results: ${fibResults.toLong}")
     } yield ExitCode.success
 }
+
+object FiberRefs extends App {
+
+  override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] =
+    for {
+      _ <- putStrLn("Basic FiberRef example....")
+      fiberRef <- FiberRef.make[Int](0)
+      _ <- fiberRef.set(10)
+      results <- fiberRef.get
+      _ <- putStrLn(s"Results -> $results")
+      _ <- putStrLn("Local FiberRef example...")
+      correlationid <- FiberRef.make[String]("")
+      v1 <- correlationid.locally("my-correlation-id")(correlationid.get)
+      v2 <- correlationid.get
+      _ <- putStrLn(s"CorrelationId: v1: '$v1' vs v2: '$v2'")
+    } yield ExitCode.success
+}
