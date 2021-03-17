@@ -2,9 +2,9 @@ name := "zio-playground"
 
 version := "0.1"
 
-scalaVersion := "2.13.4"
+scalaVersion := "2.13.5"
 
-val zioVersion        = "1.0.3"
+val zioVersion        = "1.0.4"
 val zioLoggingVersion = "0.5.4"
 
 scalacOptions += "-Ymacro-annotations"
