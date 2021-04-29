@@ -1,7 +1,7 @@
 package dev.xymox.zio.playground
 
 import zio.UIO
-import zio.stream.{ZSink, ZStream}
+import zio.stream._
 
 object Example {
 

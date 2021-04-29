@@ -4,7 +4,8 @@ version := "0.1"
 
 scalaVersion := "2.13.5"
 
-val zioVersion        = "1.0.6"
+val zioVersion        = "1.0.7"
+val zioPreludeVersion = "1.0.0-RC4"
 val zioLoggingVersion = "0.5.8"
 val zioHttpVersion    = "1.0.0.0-RC15"
 val zioJsonVersion    = "0.1.4"
@@ -14,6 +15,7 @@ scalacOptions += "-Ymacro-annotations"
 libraryDependencies ++= Seq(
   "dev.zio"             %% "zio"                      % zioVersion,
   "dev.zio"             %% "zio-macros"               % zioVersion,
+  "dev.zio"             %% "zio-prelude"              % zioPreludeVersion,
   "dev.zio"             %% "zio-json"                 % zioJsonVersion,
   "dev.zio"             %% "zio-logging-slf4j"        % zioLoggingVersion,
   "dev.zio"             %% "zio-logging-slf4j-bridge" % zioLoggingVersion,
