@@ -14,13 +14,13 @@ object ZValidationExamples extends App {
 
     def nonEmptyString(fieldName: String, value: String): ZValidation[String, FieldError, String] =
       if (value.nonEmpty)
-        ZValidation.succeed(value)
+        ZValidation.succeed(value).log(s"$fieldName with value $value is OK!")
       else
         ZValidation.fail(FieldError(fieldName, "was empty!")).log("empty string!")
 
     def validVIN(fieldName: String, value: String): ZValidation[String, FieldError, String] =
       value match {
-        case VIN_REGEX(_*) => ZValidation.succeed(value)
+        case VIN_REGEX(_*) => ZValidation.succeed(value).log(s"$fieldName with value $value is OK!")
         case _             => ZValidation.fail(FieldError(fieldName, "contains an invalid VIN.")).log(s"invalid vin: $value")
       }
   }
