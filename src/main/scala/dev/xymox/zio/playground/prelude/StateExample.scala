@@ -57,6 +57,7 @@ object StateExample extends App {
   } yield ()
 
   val program2 = for {
+    // Compose stateWithDistance with remainingDistance and then calculate hole score
     something <- ZIO((stateWithDistance <<< remainingDistance >>> score).run(GolfState(0, 0)))
     _         <- putStrLn(s"Results: $something")
   } yield ()
