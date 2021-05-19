@@ -6,9 +6,7 @@ object Json extends App {
   case class Banana(curvature: Double)
 
   object Banana {
-    //implicit val codec: JsonCodec[Banana] = DeriveJsonCodec.gen
-    implicit val encoder: JsonEncoder[Banana] = DeriveJsonEncoder.gen
-    implicit val decoder: JsonDecoder[Banana] = DeriveJsonDecoder.gen
+    implicit val codec: JsonCodec[Banana] = DeriveJsonCodec.gen
   }
 
   val banana = """{ "curvature": 0.5}""".fromJson[Banana]
@@ -23,7 +21,7 @@ object Json extends App {
 
 object AdvJson extends App {
   sealed trait Fruit
-  case class Apple(poison: Boolean) extends Fruit
+  case class Apple(poison: Boolean)    extends Fruit
   case class Banana(curvature: Double) extends Fruit
 
   object Fruit {
@@ -32,7 +30,7 @@ object AdvJson extends App {
   }
 
   val banana = """{"Banana":{"curvature":0.5}}""".fromJson[Fruit]
-  val apple = """{"Apple":{"poison":false}}""".fromJson[Fruit]
+  val apple  = """{"Apple":{"poison":false}}""".fromJson[Fruit]
 
   println(s"apple: $apple\nbanana: $banana")
 
@@ -42,7 +40,7 @@ object AdvJson extends App {
 
 object AdvJsonConfig extends App {
   sealed trait Fruit
-  @jsonHint("omenan") case class Apple(@jsonField("bad") poison: Boolean) extends Fruit
+  @jsonHint("omenan") case class Apple(@jsonField("bad") poison: Boolean)            extends Fruit
   @jsonHint("bananaai") case class Banana(@jsonField("bendiness") curvature: Double) extends Fruit
 
   object Fruit {
@@ -50,7 +48,7 @@ object AdvJsonConfig extends App {
     implicit val decoder: JsonDecoder[Fruit] = DeriveJsonDecoder.gen
   }
 
-  val apple: Fruit = Apple(poison = true)
+  val apple: Fruit  = Apple(poison = true)
   val banana: Fruit = Banana(curvature = 0.132222)
 
   println(s"apple:\n${apple.toJsonPretty}")
