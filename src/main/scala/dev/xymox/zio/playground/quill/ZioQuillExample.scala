@@ -10,24 +10,31 @@ import java.sql.{Timestamp, Types}
 import java.time.Instant
 
 object ZioQuillExample extends App {
-
+  // new ZIO JDBC Context for Quill!
   val ctx = new PostgresZioJdbcContext(SnakeCase)
   import ctx._
 
+  // some Meta classes to help Quill
   implicit val itemSchemaMeta = schemaMeta[Item]("item")
   implicit val itemInsertMeta = insertMeta[Item](_.id)
 
+  // some Encoders for Instant so Quill knows what to do with an Instant
   implicit val instantEncoder: Encoder[Instant] = encoder(Types.TIMESTAMP, (index, value, row) => row.setTimestamp(index, Timestamp.from(value)))
   implicit val instantDecoder: Decoder[Instant] = decoder((index, row) => { row.getTimestamp(index).toInstant })
 
+  // simple layer providing a connection for the effect; this is pulled from a HikariCP
+  // NOTE - prefix is the HOCON prefix in the application.conf to look for
   val zioConn: ZLayer[Blocking, Throwable, QConnection] =
     QDataSource.fromPrefix("zioQuillExample") >>> QDataSource.toConnection
 
+  // an item to insert...
   val anItem: Item = Item(id = -1, name = "Boomstick", description = "This...is my Boomstick!", unitPrice = 255.50, Instant.now)
 
+  // some Quill queries
   val itemsQuery             = quote(query[Item])
   def insertItem(item: Item) = quote(itemsQuery.insert(lift(anItem)))
 
+  // the transactional use of the context (this belongs in a DAO/Repository ZIO Service module)
   val insertAndQuery: RIO[QConnection, List[Item]] = ctx.transaction {
     for {
       _     <- ctx.run(insertItem(anItem))
@@ -35,6 +42,7 @@ object ZioQuillExample extends App {
     } yield items
   }
 
+  // our program!
   val program: RIO[Console with QConnection, Unit] = for {
     _     <- putStrLn("Running zio-quill example...")
     items <- insertAndQuery
