@@ -10,8 +10,8 @@ import zio.test.mock._
 import zio.test.{suite, DefaultRunnableSpec, ZSpec}
 
 object AccountObserverSpec extends DefaultRunnableSpec {
-  val event                            = AccountEvent("Testing Mocks!")
-  val app: URIO[AccountObserver, Unit] = AccountObserver.processEvent(event)
+  val event                           = AccountEvent("Testing Mocks!")
+  val app: RIO[AccountObserver, Unit] = AccountObserver.processEvent(event)
 
   val mockEnv: ULayer[Console] =
     (

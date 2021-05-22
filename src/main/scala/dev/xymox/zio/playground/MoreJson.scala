@@ -4,6 +4,7 @@ import zio._
 import zio.console._
 import zio.json._
 
+import java.io.IOException
 import java.time.Instant
 
 object MoreJson extends App {
@@ -14,8 +15,11 @@ object MoreJson extends App {
     implicit val codec: JsonCodec[Message] = DeriveJsonCodec.gen[Message]
   }
 
-  override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = for {
-    message <- ZIO.succeed(Message(value = "Hello World!", createAt = Instant.now))
-    _       <- putStrLn(s"Message as JSON: ${message.toJsonPretty}")
-  } yield ExitCode.success
+  val program: ZIO[Console, IOException, Unit] =
+    for {
+      message <- ZIO.succeed(Message(value = "Hello World!", createAt = Instant.now))
+      _       <- putStrLn(s"Message as JSON: ${message.toJsonPretty}")
+    } yield ()
+
+  override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = program.exitCode
 }

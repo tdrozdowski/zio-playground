@@ -5,15 +5,19 @@ import zio.clock._
 import zio.console._
 import zio.duration._
 
+import java.io.IOException
+
 object Promises extends App {
 
-  override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] =
+  val program: ZIO[Console with Clock, IOException, Unit] =
     for {
       promise       <- Promise.make[Nothing, String]
-      sendHelloWorld = (IO.succeed("hello world") <* sleep(1.second)).flatMap(promise.succeed)
+      sendHelloWorld = sleep(1.second).as("hello world").flatMap(promise.succeed)
       getAndPrint    = promise.await.flatMap(putStrLn(_))
       fiberA        <- sendHelloWorld.fork
       fiberB        <- getAndPrint.fork
       _             <- (fiberA zip fiberB).join
-    } yield ExitCode.success
+    } yield ()
+
+  override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = program.exitCode
 }

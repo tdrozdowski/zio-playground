@@ -4,6 +4,7 @@ import zio._
 import zio.console._
 import zio.clock._
 import zio.duration._
+import zio.prelude.DebugOps
 
 import java.util.concurrent.TimeUnit
 
@@ -16,7 +17,7 @@ object Queues extends App {
       f     <- queue.offer(1).fork
       n     <- queue.take
       v     <- f.join
-      _     <- putStrLn(s"Value: $n fiber done: $v")
+      _     <- putStrLn(s"Value: $n fiber done: $v").orDie
     } yield ExitCode.success
 }
 
@@ -43,11 +44,11 @@ object TransformingQueues extends App {
     queue <- annotatedOut
     _     <- queue.offer("This is a test")
     v     <- queue.take
-    _     <- putStrLn(s"Value: $v")
-    _     <- putStrLn("Time in queue example...")
+    _     <- putStrLn(s"Value: $v").orDie
+    _     <- putStrLn("Time in queue example...").orDie
     q2    <- timeQueued
     _     <- q2.offer("Another test")
     v2    <- q2.take <* sleep(1.second)
-    _     <- putStrLn(s"Value: ${v2._2} was in the queue for ${v2._1} millis!")
+    _     <- putStrLn(s"Value: ${v2._2} was in the queue for ${v2._1} millis!").orDie
   } yield ExitCode.success
 }

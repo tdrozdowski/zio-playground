@@ -11,8 +11,8 @@ object Main extends App {
     val program = shop.moonShapedSpaceStations.take(1).runCollect
 
     program.foldM(
-      e => putStrLn(s"Execution failed with: ${e.printStackTrace()}").as(ExitCode.failure),
-      _ => putStrLn(s"Death Star is fully operational!").as(ExitCode.success)
+      e => putStrLn(s"Execution failed with: ${e.printStackTrace()}").exitCode,
+      _ => putStrLn(s"Death Star is fully operational!").exitCode
     )
   }
 }

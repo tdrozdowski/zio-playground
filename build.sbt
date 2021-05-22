@@ -4,11 +4,11 @@ version := "0.1"
 
 scalaVersion := "2.13.5"
 
-val zioVersion        = "1.0.7"
-val zioPreludeVersion = "1.0.0-RC4"
+val zioVersion        = "1.0.8"
+val zioPreludeVersion = "1.0.0-RC5"
 val zioLoggingVersion = "0.5.8"
 val zioHttpVersion    = "1.0.0.0-RC15"
-val zioJsonVersion    = "0.1.4"
+val zioJsonVersion    = "0.1.5"
 val quillVersion      = "3.7.1"
 
 scalacOptions += "-Ymacro-annotations"

@@ -14,8 +14,8 @@ object Scheduling extends App {
   }
 
   def schedule[A] = Schedule.spaced(1.second) && Schedule.recurs(4).onDecision {
-    case Decision.Done(_)                 => putStrLn("done trying...")
-    case Decision.Continue(attempt, _, _) => putStrLn(s"attempt #$attempt")
+    case Decision.Done(_)                 => putStrLn("done trying...").orDie
+    case Decision.Continue(attempt, _, _) => putStrLn(s"attempt #$attempt").orDie
   }
 
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = {
@@ -23,8 +23,8 @@ object Scheduling extends App {
       _ <- makeRequest
         .retry(schedule)
         .foldM(
-          ex => putStrLn(s"Exception failed: ${ex.getMessage}"),
-          v => putStrLn(s"Succeeded with $v")
+          ex => putStrLn(s"Exception failed: ${ex.getMessage}").orDie,
+          v => putStrLn(s"Succeeded with $v").orDie
         )
     } yield ExitCode.success
   }
