@@ -22,7 +22,7 @@ case class MigrationServiceLive(logger: Logger[String], flyway: Flyway, blocking
 
   private def migrationsRan(results: MigrateResult) = {
     if (results.migrations.asScala.nonEmpty) {
-      s"Migrations ran: ${results.migrations.asScala.mkString("\n")}"
+      s"Migrations ran: \n\t${results.migrations.asScala.map(_.filepath).mkString("\n\t")}"
     } else {
       "No migrations ran."
     }
