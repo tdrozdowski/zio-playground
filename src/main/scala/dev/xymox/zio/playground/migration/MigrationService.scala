@@ -3,11 +3,9 @@ package dev.xymox.zio.playground.migration
 import dev.xymox.zio.playground.config.Configuration
 import dev.xymox.zio.playground.logging.LoggingServices
 import org.flywaydb.core.Flyway
-import org.flywaydb.core.api.configuration.FluentConfiguration
+import zio._
+import zio.blocking.Blocking
 import zio.logging.Logger
-import zio.logging.slf4j.Slf4jLogger
-import zio.prelude.AnySyntax
-import zio.{Has, RIO, RLayer, Task, TaskLayer, URIO, ZIO, ZLayer}
 
 import scala.jdk.CollectionConverters._
 
@@ -32,15 +30,15 @@ object MigrationService {
   /** Helper to extract dependencies from ZIO environment for the service
     */
   private val extractDependencies: URIO[MigrationDep, MigrationServices] =
-    ZIO.services[Logger[String], Flyway]
+    ZIO.services[Logger[String], Flyway, Blocking.Service]
 
   val serviceLayer: ZLayer[MigrationEnv, Throwable, Has[MigrationService]] = {
     for {
-      (logger, flyway) <- extractDependencies
+      (logger, flyway, blocking) <- extractDependencies
     } yield new MigrationService {
       override def runMigrations: Task[Unit] =
         for {
-          results <- ZIO.effect(flyway.migrate()) // handle errors?
+          results <- blocking.blocking(ZIO.effect(flyway.migrate())) // handle errors?
           _       <- logger.info(
             s"Migration results: schema ${results.schemaName} started at version: ${results.initialSchemaVersion} and ended at version ${results.targetSchemaVersion}."
           )
@@ -49,7 +47,7 @@ object MigrationService {
 
       override def repairMigrations: Task[Unit] =
         for {
-          results <- ZIO.effect(flyway.repair())
+          results <- blocking.blocking(ZIO.effect(flyway.repair()))
           _       <- logger.info(
             s"Migration repair complete. Details - migrations removed: ${results.migrationsRemoved}, migrations aligned: ${results.migrationsAligned}, migrationed deleted: ${results.migrationsDeleted}.\n Repair actions: ${results.repairActions.asScala
               .mkString("\n")}\n Warnings: ${results.warnings.asScala.mkString("\n")}"
@@ -58,5 +56,6 @@ object MigrationService {
     }
   }.toLayer
 
-  val live: TaskLayer[Has[MigrationService]] = Configuration.migrationConfigLive >>> LoggingServices.simpleLive ++ flywayFromConfig >>> serviceLayer
+  val live: TaskLayer[Has[MigrationService]] =
+    Configuration.migrationConfigLive >>> LoggingServices.simpleLive ++ flywayFromConfig ++ ZEnv.live >>> serviceLayer
 }
