@@ -3,12 +3,9 @@ package dev.xymox.zio.playground.migration
 import dev.xymox.zio.playground.config.Configuration
 import dev.xymox.zio.playground.logging.LoggingServices
 import org.flywaydb.core.Flyway
-import org.flywaydb.core.api.output.{BaselineResult, MigrateResult}
 import zio._
 import zio.blocking.Blocking
 import zio.logging.Logger
-
-import scala.jdk.CollectionConverters._
 
 trait MigrationService {
   def clean: Task[Unit]
@@ -42,5 +39,7 @@ object MigrationService {
   }.toLayer
 
   val live: TaskLayer[Has[MigrationService]] =
-    Configuration.migrationConfigLive >>> LoggingServices.simpleLive ++ flywayFromConfig ++ ZEnv.live >>> serviceLayer
+    Configuration.migrationConfigLive >>>
+      LoggingServices.simpleLive ++ flywayFromConfig ++ ZEnv.live >>>
+      serviceLayer
 }
