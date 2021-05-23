@@ -8,7 +8,7 @@ import zio.logging.Logger
 
 import scala.jdk.CollectionConverters._
 
-case class DefaultMigrationService(logger: Logger[String], flyway: Flyway, blocking: Blocking.Service) extends MigrationService {
+case class MigrationServiceLive(logger: Logger[String], flyway: Flyway, blocking: Blocking.Service) extends MigrationService {
 
   override def runMigrations: Task[Unit] =
     for {

@@ -4,8 +4,6 @@ import dev.xymox.zio.playground.config.Configuration
 import dev.xymox.zio.playground.logging.LoggingServices
 import org.flywaydb.core.Flyway
 import zio._
-import zio.blocking.Blocking
-import zio.logging.Logger
 
 trait MigrationService {
   def clean: Task[Unit]
@@ -15,10 +13,10 @@ trait MigrationService {
 }
 
 object MigrationService {
-  def clean: RIO[Migration, Unit]            = ZIO.accessM(_.get.clean)
-  def runBaseline: RIO[Migration, Unit]      = ZIO.accessM(_.get.runBaseline)
-  def runMigrations: RIO[Migration, Unit]    = ZIO.accessM(_.get.runMigrations)
-  def repairMigrations: RIO[Migration, Unit] = ZIO.accessM(_.get.repairMigrations)
+  def clean: RIO[Has[MigrationService], Unit]            = ZIO.serviceWith[MigrationService](_.clean)
+  def runBaseline: RIO[Has[MigrationService], Unit]      = ZIO.serviceWith[MigrationService](_.runBaseline)
+  def runMigrations: RIO[Has[MigrationService], Unit]    = ZIO.serviceWith[MigrationService](_.runMigrations)
+  def repairMigrations: RIO[Has[MigrationService], Unit] = ZIO.serviceWith[MigrationService](_.repairMigrations)
 
   val flywayFromConfig: RLayer[Has[MigrationConfig], Has[Flyway]] = {
     for {
@@ -27,16 +25,8 @@ object MigrationService {
     } yield flyway
   }.toLayer
 
-  /** Helper to extract dependencies from ZIO environment for the service
-    */
-  private val extractDependencies: URIO[MigrationDep, MigrationServices] =
-    ZIO.services[Logger[String], Flyway, Blocking.Service]
-
-  val serviceLayer: ZLayer[MigrationEnv, Throwable, Has[MigrationService]] = {
-    for {
-      (logger, flyway, blocking) <- extractDependencies
-    } yield DefaultMigrationService(logger, flyway, blocking)
-  }.toLayer
+  val serviceLayer: ZLayer[MigrationEnv, Throwable, Has[MigrationService]] =
+    (MigrationServiceLive(_, _, _)).toLayer
 
   val live: TaskLayer[Has[MigrationService]] =
     Configuration.migrationConfigLive >>>
