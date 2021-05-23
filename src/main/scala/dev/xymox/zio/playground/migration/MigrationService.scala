@@ -1,6 +1,7 @@
 package dev.xymox.zio.playground.migration
 
 import dev.xymox.zio.playground.config.Configuration
+import dev.xymox.zio.playground.logging.LoggingServices
 import org.flywaydb.core.Flyway
 import org.flywaydb.core.api.configuration.FluentConfiguration
 import zio.logging.Logger
@@ -57,6 +58,5 @@ object MigrationService {
     }
   }.toLayer
 
-  // make a logging service of some sort
-  val live: TaskLayer[Has[MigrationService]] = Configuration.migrationConfigLive >>> flywayFromConfig ++ Slf4jLogger.make >>> serviceLayer
+  val live: TaskLayer[Has[MigrationService]] = Configuration.migrationConfigLive >>> LoggingServices.simpleLive ++ flywayFromConfig >>> serviceLayer
 }
