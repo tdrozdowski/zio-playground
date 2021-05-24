@@ -4,8 +4,6 @@ import zio._
 import zio.console._
 import zio.prelude.ZValidation
 
-import scala.util.matching.Regex
-
 object ZValidationExamples extends App {
 
   object BasicValidations {
@@ -28,11 +26,11 @@ object ZValidationExamples extends App {
   case class FieldError(field: String, message: String) extends Throwable
 
   def validationExample = {
-    val emptyValidation      = BasicValidations.nonEmptyString("email", "")
+    val emptyValidation      = BasicValidations.nonEmptyString("email", "james@james.com")
     val vinValidation        = BasicValidations.validVIN("vin", "WBAWL73589P473132")
-    val invalidVinValidation = BasicValidations.validVIN("vin2", "asdfasdf")
+    val invalidVinValidation = BasicValidations.validVIN("vin2", "WBAWL73589P473132")
     for {
-      overallResults <- ZIO(ZValidation.validate(emptyValidation, vinValidation, invalidVinValidation))
+      overallResults <- ZIO(ZValidation.validate(vinValidation, emptyValidation, invalidVinValidation))
       _              <- putStrLn(s"Validation results: $overallResults")
     } yield ()
   }
