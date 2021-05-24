@@ -1,8 +1,7 @@
 package dev.xymox.zio.playground.quill.repository
 
-import io.getquill.context.ZioJdbc.{QConnection, QDataSource}
+import io.getquill.context.ZioJdbc.QDataSource
 import zio._
-import zio.blocking.Blocking
 
 trait ItemRepository {
   def create(item: ItemRecord): Task[ItemRecord]
