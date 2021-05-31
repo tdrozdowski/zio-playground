@@ -9,7 +9,7 @@ import java.time.Instant
 
 object MoreJson extends App {
 
-  case class Message(value: String, createAt: Instant)
+  case class Message(value: String, createdAt: Instant)
 
   object Message {
     implicit val codec: JsonCodec[Message] = DeriveJsonCodec.gen[Message]
@@ -17,7 +17,7 @@ object MoreJson extends App {
 
   val program: ZIO[Console, IOException, Unit] =
     for {
-      message <- ZIO.succeed(Message(value = "Hello World!", createAt = Instant.now))
+      message <- ZIO.succeed(Message(value = "Hello World!", createdAt = Instant.now))
       _       <- putStrLn(s"Message as JSON: ${message.toJsonPretty}")
     } yield ()
 
