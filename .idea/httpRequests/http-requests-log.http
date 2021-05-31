@@ -1,0 +1,105 @@
+GET http://localhost:8080/hello?query=someValue
+
+<> 2021-05-30T221648.200.txt
+
+###
+
+GET http://localhost:8080/hello
+
+<> 2021-05-30T221645.200.txt
+
+###
+
+GET http://localhost:8080/jsonHello
+Accept: application/json
+
+<> 2021-05-30T221626.200.json
+
+###
+
+GET http://localhost:8080/jsonHello
+Accept: application/json
+
+<> 2021-05-30T221511.404.txt
+
+###
+
+GET http://localhost:8080/jsonHello
+Accept: application/json
+
+<> 2021-05-30T221219.404.txt
+
+###
+
+GET http://localhost:8080/hello?query=someValue
+
+GET http://localhost:8080/jsonHello
+
+<> 2021-05-30T221102.200.txt
+
+###
+
+GET http://localhost:8080/hello?query=someValue
+
+GET http://localhost:8080/jsonHello
+
+<> 2021-05-30T221023.200.txt
+
+###
+
+GET http://localhost:8080/hello
+
+<> 2021-05-30T221017.200.txt
+
+###
+
+GET http://localhost:8080/hello
+
+<> 2021-05-30T220935.200.txt
+
+###
+
+GET http://localhost:8080/hello?query=someValue
+
+GET http://localhost:8080/jsonHello
+
+<> 2021-04-22T222327.200.txt
+
+###
+
+GET http://localhost:8080/hello
+
+<> 2021-04-22T222300.200.txt
+
+###
+
+GET http://localhost:8080/hello
+
+<> 2021-04-22T222121.200.txt
+
+###
+
+GET http://localhost:8080/jsonHello
+
+<> 2021-04-22T210751.200.json
+
+###
+
+GET http://localhost:8080/hello
+
+<> 2021-04-22T210736.200.txt
+
+###
+
+GET http://localhost:8080/hello
+
+<> 2021-04-22T210713.200.txt
+
+###
+
+GET http://localhost:8080/hello
+
+<> 2021-04-22T195443.200.txt
+
+###
+
