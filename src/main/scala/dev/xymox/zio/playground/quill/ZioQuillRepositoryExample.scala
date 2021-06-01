@@ -20,5 +20,5 @@ object ZioQuillRepositoryExample extends App {
     (startup *> ItemService.all.tap(a => putStrLn(s"Found: \n\t${a.mkString("\n\t")}")))
 
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] =
-    program.injectSome(Console.live, ZioQuillContext.dataSourceLayer, ItemService.layer, ItemRepository.layer).exitCode
+    program.inject(Console.live, ZioQuillContext.dataSourceLayer, ItemService.layer, ItemRepository.layer).exitCode
 }

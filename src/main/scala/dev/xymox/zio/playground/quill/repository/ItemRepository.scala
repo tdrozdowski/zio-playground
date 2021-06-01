@@ -17,6 +17,6 @@ object ItemRepository {
   def findById(id: Long): RIO[Has[ItemRepository], ItemRecord]       = ZIO.serviceWith[ItemRepository](_.findById(id))
 
   // live layer
-  val layer: URLayer[QDataSource with Blocking, Has[ItemRepository]] = (ItemRepositoryLive(_, _)).toLayer
+  val layer: URLayer[QDataSource, Has[ItemRepository]] = (ItemRepositoryLive(_, _)).toLayer
 
 }
