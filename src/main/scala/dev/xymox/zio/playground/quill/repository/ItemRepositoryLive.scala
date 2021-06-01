@@ -1,10 +1,15 @@
 package dev.xymox.zio.playground.quill.repository
 
 import io.getquill.SnakeCase
-import io.getquill.context.ZioJdbc.QDataSource
-import zio.Task
+import zio._
+import zio.blocking.Blocking
 
-case class ItemRepositoryLive(dataSourceLayer: QDataSource) extends ItemRepository with Queries {
+import java.io.Closeable
+import javax.sql.DataSource
+
+case class ItemRepositoryLive(dataSource: DataSource with Closeable, blocking: Blocking.Service) extends ItemRepository with Queries {
+  val dataSourceLayer: Has[DataSource with Closeable] with Has[Blocking.Service] = Has.allOf[DataSource with Closeable, Blocking.Service](dataSource, blocking)
+
   val ctx = new MyZioContext(SnakeCase)
   import ctx._
 
@@ -20,7 +25,7 @@ case class ItemRepositoryLive(dataSourceLayer: QDataSource) extends ItemReposito
 
   override def all: Task[Seq[ItemRecord]] = ctx.run(itemsQuery).asDao.provide(dataSourceLayer)
 
-  override def findById(id: Int): Task[ItemRecord] =
+  override def findById(id: Long): Task[ItemRecord] =
     ctx.run(byId(id)).map(_.headOption.getOrElse(throw new Exception(s"Can't find for id $id"))).asDao.provide(dataSourceLayer)
 
 }
@@ -31,6 +36,6 @@ trait Queries extends InstantEncoding {
   import ctx._
 
   val itemsQuery                   = quote(query[ItemRecord])
-  def byId(id: Int)                = quote(itemsQuery.filter(_.id == lift(id)))
+  def byId(id: Long)               = quote(itemsQuery.filter(_.id == lift(id)))
   def insertItem(item: ItemRecord) = quote(itemsQuery.insert(lift(item)))
 }

@@ -15,8 +15,8 @@ object ZioQuillExample extends App {
   import ctx._
 
   // some Meta classes to help Quill
-  implicit val itemSchemaMeta = schemaMeta[Item]("item")
-  implicit val itemInsertMeta = insertMeta[Item](_.id)
+  implicit val itemSchemaMeta = schemaMeta[ItemRow]("item")
+  implicit val itemInsertMeta = insertMeta[ItemRow](_.id)
 
   // some Encoders for Instant so Quill knows what to do with an Instant
   implicit val instantEncoder: Encoder[Instant] = encoder(Types.TIMESTAMP, (index, value, row) => row.setTimestamp(index, Timestamp.from(value)))
@@ -28,14 +28,14 @@ object ZioQuillExample extends App {
     QDataSource.fromPrefix("zioQuillExample") >>> QDataSource.toConnection
 
   // an item to insert...
-  val anItem: Item = Item(id = -1, name = "Boomstick", description = "This...is my Boomstick!", unitPrice = 255.50, Instant.now)
+  val anItem: ItemRow = ItemRow(id = -1, name = "Boomstick", description = "This...is my Boomstick!", unitPrice = 255.50, Instant.now)
 
   // some Quill queries
-  val itemsQuery             = quote(query[Item])
-  def insertItem(item: Item) = quote(itemsQuery.insert(lift(anItem)))
+  val itemsQuery                = quote(query[ItemRow])
+  def insertItem(item: ItemRow) = quote(itemsQuery.insert(lift(anItem)))
 
   // the transactional use of the context (this belongs in a DAO/Repository ZIO Service module)
-  val insertAndQuery: RIO[QConnection, List[Item]] = ctx.transaction {
+  val insertAndQuery: RIO[QConnection, List[ItemRow]] = ctx.transaction {
     for {
       _     <- ctx.run(insertItem(anItem))
       items <- ctx.run(itemsQuery)
@@ -52,4 +52,4 @@ object ZioQuillExample extends App {
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = program.provideLayer(ZEnv.live ++ zioConn).exitCode
 }
 
-case class Item(id: Long, name: String, description: String, unitPrice: Double, createdAt: Instant = Instant.now)
+case class ItemRow(id: Long, name: String, description: String, unitPrice: Double, createdAt: Instant = Instant.now)
