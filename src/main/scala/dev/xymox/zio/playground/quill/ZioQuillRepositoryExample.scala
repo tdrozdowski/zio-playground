@@ -2,7 +2,6 @@ package dev.xymox.zio.playground.quill
 
 import dev.xymox.zio.playground.quill.repository.ItemRepository
 import zio._
-import zio.blocking.Blocking
 import zio.console._
 import zio.magic._
 
