@@ -4,7 +4,6 @@ import zio._
 import zio.console._
 import zio.optics._
 
-import java.io.IOException
 import java.time.Instant
 
 case class Item(id: Long, name: String, description: String, price: Double, createdAt: Instant)

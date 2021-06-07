@@ -14,6 +14,7 @@ val quillVersion      = "3.7.1"
 val flywayVersion     = "7.9.1"
 val zioConfigVersion  = "1.0.5"
 val tapirVersion      = "0.18.0-M11"
+val chimneyVersion    = "0.6.1"
 
 scalacOptions += "-Ymacro-annotations"
 
@@ -32,6 +33,7 @@ libraryDependencies ++= Seq(
   "io.getquill"                 %% "quill-jdbc-zio"           % quillVersion,
   "org.flywaydb"                 % "flyway-core"              % flywayVersion,
   "com.softwaremill.sttp.tapir" %% "tapir-zio"                % tapirVersion,
+  "io.scalaland"                %% "chimney"                  % chimneyVersion,
   "org.postgresql"               % "postgresql"               % "42.2.8",
   "ch.qos.logback"               % "logback-classic"          % "1.2.3",
   "net.logstash.logback"         % "logstash-logback-encoder" % "6.5",
