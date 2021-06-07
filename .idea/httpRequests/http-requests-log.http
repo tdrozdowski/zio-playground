@@ -1,3 +1,60 @@
+GET http://localhost:8080/items/10
+Accept: application/json
+
+<> 2021-06-06T224207.500.txt
+
+###
+
+GET http://localhost:8080/items/10
+Accept: application/json
+
+###
+
+GET http://localhost:8080/items/10
+Accept: application/json
+
+<> 2021-06-06T220906.500.txt
+
+###
+
+GET http://localhost:8080/items/10
+Accept: application/json
+
+###
+
+GET http://localhost:8080/items/10
+Accept: application/json
+
+###
+
+GET http://localhost:8080/items/1
+Accept: application/json
+
+<> 2021-06-06T213947.200.json
+
+###
+
+GET http://localhost:8080/items
+Accept: application/json
+
+<> 2021-06-06T213558.200.json
+
+###
+
+GET http://localhost:8080/items
+Accept: application/json
+
+<> 2021-06-06T213406.200.json
+
+###
+
+GET http://localhost:8080/items
+Accept: application/json
+
+<> 2021-06-06T212636.200.json
+
+###
+
 GET http://localhost:8080/hello?query=someValue
 
 <> 2021-05-30T221648.200.txt

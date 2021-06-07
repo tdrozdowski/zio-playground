@@ -16,4 +16,6 @@ package object repository {
     implicit val instantDecoder: Decoder[Instant] = decoder((index, row) => { row.getTimestamp(index).toInstant })
     implicit val instantEncoder: Encoder[Instant] = encoder(Types.TIMESTAMP, (idx, value, row) => row.setTimestamp(idx, Timestamp.from(value)))
   }
+
+  case class NotFoundException(message: String, id: Long) extends Throwable
 }

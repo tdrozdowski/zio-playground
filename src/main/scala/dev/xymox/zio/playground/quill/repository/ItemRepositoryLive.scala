@@ -24,8 +24,12 @@ case class ItemRepositoryLive(dataSource: DataSource with Closeable, blocking: B
 
   override def all: Task[Seq[ItemRecord]] = ctx.run(itemsQuery).dependOnDataSource().provide(dataSourceLayer)
 
-  override def findById(id: Long): Task[ItemRecord] =
-    ctx.run(byId(id)).map(_.headOption.getOrElse(throw new Exception(s"Can't find for id $id"))).dependOnDataSource().provide(dataSourceLayer)
+  override def findById(id: Long): Task[ItemRecord] = {
+    for {
+      results <- ctx.run(byId(id)).dependOnDataSource().provide(dataSourceLayer)
+      item    <- ZIO.fromOption(results.headOption).orElseFail(NotFoundException(s"Could not find item with id $id", id))
+    } yield item
+  }
 
 }
 
