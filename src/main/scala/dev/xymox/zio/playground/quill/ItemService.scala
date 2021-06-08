@@ -10,6 +10,10 @@ import java.time.Instant
 import scala.language.implicitConversions
 
 case class CreateItemRequest(name: String, description: String, price: Double)
+
+object CreateItemRequest {
+  implicit val codec: JsonCodec[CreateItemRequest] = DeriveJsonCodec.gen[CreateItemRequest]
+}
 case class Item(id: Long, name: String, description: String, price: Double, createdAt: Instant)
 
 object Item {

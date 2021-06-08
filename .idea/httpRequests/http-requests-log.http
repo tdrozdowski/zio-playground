@@ -1,3 +1,43 @@
+GET http://localhost:8080/items/8
+Accept: application/json
+
+<> 2021-06-07T205336.200.json
+
+###
+
+GET http://localhost:8080/items
+Accept: application/json
+
+<> 2021-06-07T205326.200.json
+
+###
+
+POST http://localhost:8080/items
+Content-Type: application/json
+
+{
+  "name" : "Chainsaw",
+  "description" : "This is my ....buzz stick?",
+  "price" : 59.99
+}
+
+<> 2021-06-07T205320.200.json
+
+###
+
+POST http://localhost:8080/items
+Content-Type: application/json
+
+{
+  "name" : "Chainsaw",
+  "descriptiopn" : "This is my ....buzz stick?",
+  "price" : 59.99
+}
+
+<> 2021-06-07T205247.500.txt
+
+###
+
 GET http://localhost:8080/items/10
 Accept: application/json
 
