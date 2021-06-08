@@ -5,6 +5,7 @@ import io.scalaland.chimney.dsl.TransformerOps
 import zio.{Has, RIO, RLayer, Task, ZIO}
 import zio.console.Console
 import zio.json.{DeriveJsonCodec, JsonCodec}
+import zio.macros.accessible
 
 import java.time.Instant
 import scala.language.implicitConversions
@@ -22,6 +23,7 @@ object Item {
   implicit val codec: JsonCodec[Item]                                 = DeriveJsonCodec.gen[Item]
 }
 
+@accessible
 trait ItemService {
   def create(request: CreateItemRequest): Task[Item]
   def all: Task[Seq[Item]]
@@ -29,10 +31,6 @@ trait ItemService {
 }
 
 object ItemService {
-  def create(request: CreateItemRequest): RIO[Has[ItemService], Item] = ZIO.serviceWith[ItemService](_.create(request))
-  def all: RIO[Has[ItemService], Seq[Item]]                           = ZIO.serviceWith[ItemService](_.all)
-  def get(id: Int): RIO[Has[ItemService], Item]                       = ZIO.serviceWith[ItemService](_.get(id))
-
   val layer: RLayer[Has[ItemRepository] with Console, Has[ItemService]] = (ItemServiceLive(_, _)).toLayer
 }
 

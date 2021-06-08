@@ -1,12 +1,12 @@
 package dev.xymox.zio.playground.zhttp
 
-import dev.xymox.zio.playground.quill.{CreateItemRequest, Item, ItemService}
 import dev.xymox.zio.playground.quill.repository.NotFoundException
+import dev.xymox.zio.playground.quill.{CreateItemRequest, ItemService}
 import zhttp.http._
-import zio.{Has, ZIO}
 import zio.json._
+import zio.{Has, IO, ZIO}
 
-object ItemEndpoints {
+object ItemEndpoints extends RequestOps {
 
   val item: Http[Has[ItemService], HttpError, Request, UResponse] = Http
     .collectM[Request] {
@@ -20,9 +20,8 @@ object ItemEndpoints {
         } yield Response.jsonString(item.toJson)
       case req @ Method.POST -> Root / "items" =>
         for {
-          requestOrError <- ZIO.fromOption(req.getBodyAsString.map(_.fromJson[CreateItemRequest]))
-          request        <- ZIO.fromEither(requestOrError)
-          results        <- ItemService.create(request)
+          request <- extractBodyFromJson[CreateItemRequest](req)
+          results <- ItemService.create(request)
         } yield Response.jsonString(results.toJson)
     }
     .catchAll {
@@ -32,4 +31,13 @@ object ItemEndpoints {
         Http.fail(HttpError.InternalServerError(msg = ex.getMessage, cause = Option(ex)))
       case err                        => Http.fail(HttpError.InternalServerError(msg = err.toString))
     }
+}
+
+trait RequestOps {
+
+  def extractBodyFromJson[A](request: Request)(implicit codec: JsonCodec[A]): IO[Serializable, A] =
+    for {
+      requestOrError <- ZIO.fromOption(request.getBodyAsString.map(_.fromJson[A]))
+      body           <- ZIO.fromEither(requestOrError)
+    } yield body
 }
