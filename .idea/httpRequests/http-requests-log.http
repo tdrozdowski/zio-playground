@@ -1,6 +1,13 @@
 GET http://localhost:8080/items/10
 Accept: application/json
 
+<> 2021-06-07T195549.404.txt
+
+###
+
+GET http://localhost:8080/items/10
+Accept: application/json
+
 <> 2021-06-06T224207.500.txt
 
 ###
