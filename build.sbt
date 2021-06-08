@@ -34,6 +34,7 @@ libraryDependencies ++= Seq(
   "org.flywaydb"                 % "flyway-core"              % flywayVersion,
   "com.softwaremill.sttp.tapir" %% "tapir-zio"                % tapirVersion,
   "io.scalaland"                %% "chimney"                  % chimneyVersion,
+  "com.github.jwt-scala"        %% "jwt-core"                 % "8.0.2",
   "org.postgresql"               % "postgresql"               % "42.2.8",
   "ch.qos.logback"               % "logback-classic"          % "1.2.3",
   "net.logstash.logback"         % "logstash-logback-encoder" % "6.5",

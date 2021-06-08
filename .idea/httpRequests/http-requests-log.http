@@ -1,3 +1,46 @@
+POST http://localhost:8080/items
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjMxMzY2MjMsImlhdCI6MTYyMzEzNjU2MywidXNlciI6ICJGb29iYXIifQ.80RFi9SGNzbgQ8ogtJJAKSPmmYYuKi-Padqzen6Bex5JjeNUUNPcKLkei6SzO6MoLbiYtfkYqpoJ0mNRqrcjXA
+
+{
+  "name" : "Chainsaw",
+  "description" : "This is my ....buzz stick?",
+  "price" : 59.99
+}
+
+<> 2021-06-08T001634.200.json
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "Foobar",
+  "password": "rabooF"
+}
+
+<> 2021-06-08T001603.200.txt
+
+###
+
+POST http://localhost/login
+Content-Type: application/json
+
+{
+  "username": "Foobar",
+  "password": "rabooF"
+}
+
+###
+
+GET http://localhost:8080/items/8
+Accept: application/json
+
+<> 2021-06-08T001504.403.txt
+
+###
+
 GET http://localhost:8080/items/8
 Accept: application/json
 
