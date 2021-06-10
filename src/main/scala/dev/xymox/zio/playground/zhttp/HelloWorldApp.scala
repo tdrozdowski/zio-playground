@@ -6,11 +6,6 @@ import zio.json._
 
 object HelloWorldApp {
 
-  val requireAuth: Http[Any, IllegalArgumentException, Any, UResponse] = Http.collectM {
-    case Request(_, data) if data.headers.exists(_.name == "Authorization") => ZIO.succeed(Response.text("Some Valid JWT Claim"))
-    case _                                                                  => ZIO.fail(new IllegalArgumentException("Missing Validation"))
-  }
-
   val app: Http[Any, Nothing, Request, UResponse] = Http.collectM { case req @ Method.GET -> Root / "hello" =>
     for {
       params <- ZIO.succeed(req.endpoint._2.queryParams)

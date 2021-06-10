@@ -1,6 +1,78 @@
 POST http://localhost:8080/items
 Content-Type: application/json
 Origin: http://localhost:8080
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjMyOTg2MDksImlhdCI6MTYyMzI5ODMwOSwidXNlciI6ICJGb29iYXIifQ.UDtD9AQqn56cQkgsrI24gd3CMN3pOvacNFd7M7hrIohBXss0ZjzlskRw6YBHPYfs2HrKRf6pkjnDP7mAthU8-g
+
+{
+  "name" : "Chainsaw",
+  "description" : "This is my ....buzz stick?",
+  "price" : 59.99
+}
+
+<> 2021-06-09T211227.200.json
+
+###
+
+POST http://localhost:8080/items
+Content-Type: application/json
+Origin: http://localhost:8080
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjMyOTg2MDksImlhdCI6MTYyMzI5ODMwOSwidXNlciI6ICJGb29iYXIifQ.UDtD9AQqn56cQkgsrI24gd3CMN3pOvacNFd7M7hrIohBXss0ZjzlskRw6YBHPYfs2HrKRf6pkjnDP7mAthU8-g
+
+{
+  "name" : "Chainsaw",
+  "description" : "This is my ....buzz stick?",
+  "price" : 59.99
+}
+
+<> 2021-06-09T211222.200.json
+
+###
+
+POST http://localhost:8080/items
+Content-Type: application/json
+Origin: http://localhost:8080
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjMyOTg2MDksImlhdCI6MTYyMzI5ODMwOSwidXNlciI6ICJGb29iYXIifQ.UDtD9AQqn56cQkgsrI24gd3CMN3pOvacNFd7M7hrIohBXss0ZjzlskRw6YBHPYfs2HrKRf6pkjnDP7mAthU8-g
+
+{
+  "name" : "Chainsaw",
+  "description" : "This is my ....buzz stick?",
+  "price" : 59.99
+}
+
+<> 2021-06-09T211218.200.json
+
+###
+
+POST http://localhost:8080/items
+Content-Type: application/json
+Origin: http://localhost:8080
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjMyOTg2MDksImlhdCI6MTYyMzI5ODMwOSwidXNlciI6ICJGb29iYXIifQ.UDtD9AQqn56cQkgsrI24gd3CMN3pOvacNFd7M7hrIohBXss0ZjzlskRw6YBHPYfs2HrKRf6pkjnDP7mAthU8-g
+
+{
+  "name" : "Chainsaw",
+  "description" : "This is my ....buzz stick?",
+  "price" : 59.99
+}
+
+<> 2021-06-09T211204.200.json
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "Foobar",
+  "password": "rabooF"
+}
+
+<> 2021-06-09T211149.200.txt
+
+###
+
+POST http://localhost:8080/items
+Content-Type: application/json
+Origin: http://localhost:8080
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjMyMDQ4NzQsImlhdCI6MTYyMzIwNDU3NCwidXNlciI6ICJGb29iYXIifQ.09iRBDVStfmK0IM1xACv47rsSWtZ_GtLpUUO2LU983UOmKzls-F_ED6x2JAEjwV4BKiJaRQBByDGbZzo_V_CNw
 
 {

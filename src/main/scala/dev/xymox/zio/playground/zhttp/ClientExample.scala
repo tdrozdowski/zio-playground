@@ -4,7 +4,7 @@ import dev.xymox.zio.playground.quill.Item
 import dev.xymox.zio.playground.zhttp.auth.LoginRequest
 import zhttp.core.ByteBuf
 import zhttp.http.HttpData.CompleteData
-import zhttp.http.{Header, HttpData, Method, Request, Response, URL}
+import zhttp.http._
 import zhttp.service.{ChannelFactory, Client, EventLoopGroup}
 import zio._
 import zio.console._
@@ -23,8 +23,8 @@ object ClientExample extends App {
     for {
       login        <- ZIO.fromEither(URL.fromString(loginUrl))
       loginByteBuf <- ByteBuf.fromString(loginRequest.toJson)
-      loginData     = Request.Data(headers = List.empty, HttpData.fromByteBuf(loginByteBuf.asJava))
-      res          <- Client.request(Request(Method.POST -> login, loginData))
+      loginRequest  = Request(endpoint = (Method.POST -> login), headers = List.empty, content = HttpData.fromByteBuf(loginByteBuf.asJava))
+      res          <- Client.request(loginRequest)
       token         = res.content match {
         case CompleteData(data) => data.map(_.toChar).mkString
         case _                  => "<you shouldn't see this>"
@@ -33,10 +33,9 @@ object ClientExample extends App {
 
   def getItems(token: String): ZIO[EventLoopGroup with ChannelFactory, Serializable, Seq[Item]] =
     for {
-      item    <- ZIO.fromEither(URL.fromString(itemsUrl))
-      itemData = Request.Data(headers = List(Header.authorization(s"Bearer $token")), HttpData.empty)
-      res     <- Client.request(Request(Method.GET -> item, itemData))
-      items   <- ZIO.fromEither(res.content match {
+      item  <- ZIO.fromEither(URL.fromString(itemsUrl))
+      res   <- Client.request(Method.GET -> item, List(Header.authorization(s"Bearer $token")))
+      items <- ZIO.fromEither(res.content match {
         case CompleteData(data) => data.map(_.toChar).mkString.fromJson[Seq[Item]]
         case _                  => Left("Unexpected data type")
       })
@@ -44,8 +43,7 @@ object ClientExample extends App {
 
   val program: ZIO[Console with EventLoopGroup with ChannelFactory, Serializable, Unit] =
     for {
-      token         <- login
-      items         <- getItems(token)
+      items         <- login >>= getItems
       namesAndPrices = items.map(i => i.name -> i.price)
       _             <- putStrLn(s"Found items:\n\t${namesAndPrices.mkString("\n\t")}")
     } yield ()
