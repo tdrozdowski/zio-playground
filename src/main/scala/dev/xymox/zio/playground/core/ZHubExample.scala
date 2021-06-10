@@ -1,7 +1,7 @@
-package dev.xymox.zio.playground
+package dev.xymox.zio.playground.core
 
-import zio._
-import zio.stream._
+import zio.stream.ZStream
+import zio.{console, App, ExitCode, Hub, Promise, URIO, ZEnv, ZIO}
 
 object ZHubExample extends App {
 

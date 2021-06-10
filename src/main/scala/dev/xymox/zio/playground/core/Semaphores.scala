@@ -1,8 +1,8 @@
-package dev.xymox.zio.playground
+package dev.xymox.zio.playground.core
 
-import zio._
-import zio.console._
+import zio.console.putStrLn
 import zio.duration.Duration
+import zio.{App, ExitCode, Semaphore, URIO, ZIO}
 
 import java.util.concurrent.TimeUnit
 

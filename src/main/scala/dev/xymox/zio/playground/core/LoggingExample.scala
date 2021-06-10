@@ -1,4 +1,4 @@
-package dev.xymox.zio.playground
+package dev.xymox.zio.playground.core
 
 import zio._
 import zio.clock.Clock

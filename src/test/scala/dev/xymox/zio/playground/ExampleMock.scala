@@ -1,5 +1,7 @@
 package dev.xymox.zio.playground
 
+import dev.xymox.zio.playground.core.Example
+import dev.xymox.zio.playground.core.playground.Example
 import zio.stream.{ZSink, ZStream}
 import zio.test.mock
 import zio.test.mock.Mock

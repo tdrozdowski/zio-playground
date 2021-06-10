@@ -1,4 +1,4 @@
-package dev.xymox.zio
+package dev.xymox.zio.playground.core
 
 import zio.Has
 

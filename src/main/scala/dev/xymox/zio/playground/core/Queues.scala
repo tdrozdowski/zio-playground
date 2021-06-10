@@ -1,10 +1,9 @@
-package dev.xymox.zio.playground
+package dev.xymox.zio.playground.core
 
 import zio._
-import zio.console._
 import zio.clock._
+import zio.console._
 import zio.duration._
-import zio.prelude.DebugOps
 
 import java.util.concurrent.TimeUnit
 

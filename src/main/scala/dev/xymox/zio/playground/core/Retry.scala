@@ -1,10 +1,10 @@
-package dev.xymox.zio.playground
+package dev.xymox.zio.playground.core
 
 import zio._
-import zio.console._
-import zio.random._
-import zio.duration._
 import zio.clock._
+import zio.console._
+import zio.duration._
+import zio.random._
 
 //noinspection SimplifyChainToForInspection
 object Main extends App {

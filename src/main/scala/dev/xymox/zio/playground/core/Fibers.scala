@@ -1,8 +1,7 @@
-package dev.xymox.zio.playground
+package dev.xymox.zio.playground.core
 
-import zio.UIO
-import zio._
 import zio.console._
+import zio.{UIO, ZEnv, _}
 
 import java.io.IOException
 

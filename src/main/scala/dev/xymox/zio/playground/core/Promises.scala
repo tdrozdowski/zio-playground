@@ -1,11 +1,12 @@
-package dev.xymox.zio.playground
+package dev.xymox.zio.playground.core
 
-import zio._
-import zio.clock._
-import zio.console._
-import zio.duration._
+import zio.clock.{sleep, Clock}
+import zio.console.{putStrLn, Console}
+import zio.{App, ExitCode, Promise, URIO, ZIO}
 
 import java.io.IOException
+
+import zio.duration._
 
 object Promises extends App {
 

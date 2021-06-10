@@ -1,13 +1,14 @@
 package dev.xymox.zio.playground
 
+import dev.xymox.zio.playground.core.playground.AccountObserver
+import dev.xymox.zio.playground.core.{AccountEvent, AccountObserver}
 import zio._
-import zio.console.Console
+import zio.console._
 import zio.test._
 import zio.test.Assertion._
 import zio.test.environment.{TestClock, TestEnvironment}
 import zio.test.mock.Expectation._
 import zio.test.mock._
-import zio.test.{suite, DefaultRunnableSpec, ZSpec}
 
 object AccountObserverSpec extends DefaultRunnableSpec {
   val event                           = AccountEvent("Testing Mocks!")

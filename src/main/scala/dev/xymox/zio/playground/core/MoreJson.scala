@@ -1,9 +1,8 @@
-package dev.xymox.zio.playground
+package dev.xymox.zio.playground.core
 
-import zio._
 import zio.console._
 import zio.json._
-
+import zio._
 import java.io.IOException
 import java.time.Instant
 

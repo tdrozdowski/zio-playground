@@ -1,7 +1,8 @@
-package dev.xymox.zio.playground
+package dev.xymox.zio.playground.core
 
-import zio.{RIO, Task, UIO, ZIO, ZLayer}
+import dev.xymox.zio.playground.core.playground.AccountObserver
 import zio.console._
+import zio.{RIO, Task, ZIO, ZLayer}
 
 object AccountObserver {
 

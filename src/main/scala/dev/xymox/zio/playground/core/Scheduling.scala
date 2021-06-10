@@ -1,8 +1,8 @@
-package dev.xymox.zio.playground
+package dev.xymox.zio.playground.core
 
 import zio.Schedule.Decision
-import zio._
-import zio.console._
+import zio.console.putStrLn
+import zio.{App, ExitCode, Schedule, Task, URIO}
 import zio.duration._
 
 import scala.util.Random
