@@ -10,6 +10,8 @@ val zioLoggingVersion = "0.5.8"
 val zioHttpVersion    = "1.0.0.0-RC17"
 val zioJsonVersion    = "0.1.5"
 val zioOpticsVersion  = "0.1.0"
+val zioSchemaVersion  = "0.0.5"
+val zQueryVersion     = "0.2.9"
 val quillVersion      = "3.7.1"
 val flywayVersion     = "7.9.1"
 val zioConfigVersion  = "1.0.5"
@@ -27,6 +29,8 @@ libraryDependencies ++= Seq(
   "dev.zio"                     %% "zio-config"               % zioConfigVersion,
   "dev.zio"                     %% "zio-config-magnolia"      % zioConfigVersion,
   "dev.zio"                     %% "zio-config-typesafe"      % zioConfigVersion,
+  "dev.zio"                     %% "zio-query"                % zQueryVersion,
+  "dev.zio"                     %% "zio-schema"               % zioSchemaVersion,
   "io.github.kitlangton"        %% "zio-magic"                % "0.3.2",
   "dev.zio"                     %% "zio-optics"               % zioOpticsVersion,
   "io.d11"                      %% "zhttp"                    % zioHttpVersion,
