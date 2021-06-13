@@ -49,7 +49,13 @@ object SchemaExamples extends App {
   sealed trait PaymentMethod
 
   object PaymentMethod {
-    final case class CreditCard(number: String) extends PaymentMethod
+    final case class CreditCard(number: String)                        extends PaymentMethod
+    final case class ACH(accountNumber: String, routingNumber: String) extends PaymentMethod
+
+    def fromString(name: String): PaymentMethod = name match {
+      case "cc"  => CreditCard(number = "")
+      case "ach" => ACH(accountNumber = "", routingNumber = "")
+    }
   }
 
   val schemaPaymentMethod: Schema[PaymentMethod] = DeriveSchema.gen[PaymentMethod]
