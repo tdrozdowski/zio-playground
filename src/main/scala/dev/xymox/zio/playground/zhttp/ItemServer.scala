@@ -15,7 +15,7 @@ object ItemServer extends App {
     AuthenticationApp.login +++ CORS(
       AuthenticationApp.authenticate(HttpApp.forbidden("None shall pass."), ItemEndpoints.item),
       config = CORSConfig(anyOrigin = true)
-    )
+    ) +++ InvoiceEndpoints.invoiceRoutes
 
   val program: ZIO[Any, Throwable, Nothing] = Server
     .start(8080, endpoints)

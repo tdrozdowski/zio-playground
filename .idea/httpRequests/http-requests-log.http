@@ -1,3 +1,122 @@
+GET http://localhost:8080/api/v1/invoices
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjQyNTE0ODcsImlhdCI6MTYyNDI1MTE4NywidXNlciI6ICJGb29iYXIifQ.EwbA9VmFF7AmUgOYeSz0h4BDeSAI3wKGEBhqy-qe9-OwtYjrdaKmj5xXta_DDBKrBydKiR_kxTHlIx9AVDd2Ww
+
+<> 2021-06-20T215346.500.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoice
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjQyNTE0ODcsImlhdCI6MTYyNDI1MTE4NywidXNlciI6ICJGb29iYXIifQ.EwbA9VmFF7AmUgOYeSz0h4BDeSAI3wKGEBhqy-qe9-OwtYjrdaKmj5xXta_DDBKrBydKiR_kxTHlIx9AVDd2Ww
+
+<> 2021-06-20T215310.500.txt
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "Foobar",
+  "password": "rabooF"
+}
+
+<> 2021-06-20T215307.200.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoice
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjQyNTE0MjAsImlhdCI6MTYyNDI1MTEyMCwidXNlciI6ICJGb29iYXIifQ.RrfScea_OzHZh-fsRcJQ6Uc4-ldlg_WN39Q6PO-83J0hm5Jd0o-_RJlUWXGWiU-WOdGGZ7vgiyFvd5Gohz_FuA
+
+<> 2021-06-20T215204.500.txt
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "Foobar",
+  "password": "rabooF"
+}
+
+<> 2021-06-20T215200.200.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoice
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjQyNTEyMjYsImlhdCI6MTYyNDI1MDkyNiwidXNlciI6ICJGb29iYXIifQ.oVjJwMV4ZZblMzoHVS4fdwZGgasKbUudogNk8AocCr234IjjI1xGKNwiVR3t-qN8Vj5B9GaJPitM5DBaeg1XUg
+
+<> 2021-06-20T214851.500.txt
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "Foobar",
+  "password": "rabooF"
+}
+
+<> 2021-06-20T214846.200.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoice
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjQyNTA3MDAsImlhdCI6MTYyNDI1MDQwMCwidXNlciI6ICJGb29iYXIifQ.U3PBey5chv1PI_yVhUojEM7_BpFazephMB5udwC5BcZFIjpXhVPOmzaEaY9OCRx6EuEaZp0wvCzs8oqUdlMVJA
+
+<> 2021-06-20T214836.403.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoice
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjQyNTA3MDAsImlhdCI6MTYyNDI1MDQwMCwidXNlciI6ICJGb29iYXIifQ.U3PBey5chv1PI_yVhUojEM7_BpFazephMB5udwC5BcZFIjpXhVPOmzaEaY9OCRx6EuEaZp0wvCzs8oqUdlMVJA
+
+<> 2021-06-20T214011.404.txt
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "Foobar",
+  "password": "rabooF"
+}
+
+<> 2021-06-20T214000.200.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoice
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjQyNTA1NDksImlhdCI6MTYyNDI1MDI0OSwidXNlciI6ICJGb29iYXIifQ.K8GP7trR47pmHuWtOz5pWMzRORiGWj7fx7I20I6xEYlJxs6PR1reWCs-Hxq82fQze_ERy8gMejQ24Cs4BMaoyA
+
+<> 2021-06-20T213736.404.txt
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "Foobar",
+  "password": "rabooF"
+}
+
+<> 2021-06-20T213730.200.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoice
+
+<> 2021-06-20T213328.403.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoice
+
+###
+
 POST http://localhost:8080/items
 Content-Type: application/json
 Origin: http://localhost:8080
@@ -332,62 +451,6 @@ GET http://localhost:8080/hello?query=someValue
 GET http://localhost:8080/jsonHello
 
 <> 2021-05-30T221023.200.txt
-
-###
-
-GET http://localhost:8080/hello
-
-<> 2021-05-30T221017.200.txt
-
-###
-
-GET http://localhost:8080/hello
-
-<> 2021-05-30T220935.200.txt
-
-###
-
-GET http://localhost:8080/hello?query=someValue
-
-GET http://localhost:8080/jsonHello
-
-<> 2021-04-22T222327.200.txt
-
-###
-
-GET http://localhost:8080/hello
-
-<> 2021-04-22T222300.200.txt
-
-###
-
-GET http://localhost:8080/hello
-
-<> 2021-04-22T222121.200.txt
-
-###
-
-GET http://localhost:8080/jsonHello
-
-<> 2021-04-22T210751.200.json
-
-###
-
-GET http://localhost:8080/hello
-
-<> 2021-04-22T210736.200.txt
-
-###
-
-GET http://localhost:8080/hello
-
-<> 2021-04-22T210713.200.txt
-
-###
-
-GET http://localhost:8080/hello
-
-<> 2021-04-22T195443.200.txt
 
 ###
 
