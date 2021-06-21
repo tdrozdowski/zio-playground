@@ -1,4 +1,59 @@
 GET http://localhost:8080/api/v1/invoices
+
+<> 2021-06-20T224339.500.txt
+
+###
+
+POST http://localhost:8080/items
+Content-Type: application/json
+Origin: http://localhost:8080
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjQyNTM4NjAsImlhdCI6MTYyNDI1MzU2MCwidXNlciI6ICJGb29iYXIifQ.oBFMnOfL-56-19dyB9_ppv34jwHWpm1loQLObDHYar0M-A37VoDC2z5kSM9C6fLYZCCJVNJPR7cTUyS1mKErqg
+
+{
+  "name" : "Chainsaw",
+  "description" : "This is my ....buzz stick?",
+  "price" : 59.99
+}
+
+<> 2021-06-20T223510.200.json
+
+###
+
+POST http://localhost:8080/items
+Content-Type: application/json
+Origin: http://localhost:8080
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjMyOTg2MDksImlhdCI6MTYyMzI5ODMwOSwidXNlciI6ICJGb29iYXIifQ.UDtD9AQqn56cQkgsrI24gd3CMN3pOvacNFd7M7hrIohBXss0ZjzlskRw6YBHPYfs2HrKRf6pkjnDP7mAthU8-g
+
+{
+  "name" : "Chainsaw",
+  "description" : "This is my ....buzz stick?",
+  "price" : 59.99
+}
+
+<> 2021-06-20T223445.403.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoices
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjQyNTM4NjAsImlhdCI6MTYyNDI1MzU2MCwidXNlciI6ICJGb29iYXIifQ.oBFMnOfL-56-19dyB9_ppv34jwHWpm1loQLObDHYar0M-A37VoDC2z5kSM9C6fLYZCCJVNJPR7cTUyS1mKErqg
+
+<> 2021-06-20T223407.500.txt
+
+###
+
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "Foobar",
+  "password": "rabooF"
+}
+
+<> 2021-06-20T223240.200.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoices
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2MjQyNTE0ODcsImlhdCI6MTYyNDI1MTE4NywidXNlciI6ICJGb29iYXIifQ.EwbA9VmFF7AmUgOYeSz0h4BDeSAI3wKGEBhqy-qe9-OwtYjrdaKmj5xXta_DDBKrBydKiR_kxTHlIx9AVDd2Ww
 
 <> 2021-06-20T215346.500.txt
@@ -414,43 +469,6 @@ GET http://localhost:8080/hello?query=someValue
 GET http://localhost:8080/hello
 
 <> 2021-05-30T221645.200.txt
-
-###
-
-GET http://localhost:8080/jsonHello
-Accept: application/json
-
-<> 2021-05-30T221626.200.json
-
-###
-
-GET http://localhost:8080/jsonHello
-Accept: application/json
-
-<> 2021-05-30T221511.404.txt
-
-###
-
-GET http://localhost:8080/jsonHello
-Accept: application/json
-
-<> 2021-05-30T221219.404.txt
-
-###
-
-GET http://localhost:8080/hello?query=someValue
-
-GET http://localhost:8080/jsonHello
-
-<> 2021-05-30T221102.200.txt
-
-###
-
-GET http://localhost:8080/hello?query=someValue
-
-GET http://localhost:8080/jsonHello
-
-<> 2021-05-30T221023.200.txt
 
 ###
 
