@@ -1,6 +1,5 @@
 package dev.xymox.zio.playground.quill.repository
 
-import io.getquill.SnakeCase
 import io.getquill.context.ZioJdbc.QuillZioExt
 import zio._
 import zio.blocking.Blocking
@@ -8,35 +7,32 @@ import zio.blocking.Blocking
 import java.io.Closeable
 import javax.sql.DataSource
 
-case class ItemRepositoryLive(dataSource: DataSource with Closeable, blocking: Blocking.Service) extends ItemRepository with Queries {
+case class ItemRepositoryLive(dataSource: DataSource with Closeable, blocking: Blocking.Service) extends ItemRepository {
   val dataSourceLayer: Has[DataSource with Closeable] with Has[Blocking.Service] = Has.allOf[DataSource with Closeable, Blocking.Service](dataSource, blocking)
 
-  val ctx: MyZioContext[SnakeCase] = new MyZioContext[SnakeCase](SnakeCase)
+  import MyContext._
 
-  import ctx._
-
-  override def create(item: ItemRecord): Task[ItemRecord] = ctx.transaction {
+  override def create(item: ItemRecord): Task[ItemRecord] = transaction {
     for {
-      _     <- ctx.run(insertItem(item))
-      items <- ctx.run(itemsQuery)
+      _     <- run(ItemQueries.insertItem(item))
+      items <- run(ItemQueries.itemsQuery)
     } yield items.headOption.getOrElse(throw new Exception("Insert failed!"))
   }.dependOnDataSource().provide(dataSourceLayer)
 
-  override def all: Task[Seq[ItemRecord]] = ctx.run(itemsQuery).dependOnDataSource().provide(dataSourceLayer)
+  override def all: Task[Seq[ItemRecord]] = run(ItemQueries.itemsQuery).dependOnDataSource().provide(dataSourceLayer)
 
   override def findById(id: Long): Task[ItemRecord] = {
     for {
-      results <- ctx.run(byId(id)).dependOnDataSource().provide(dataSourceLayer)
+      results <- run(ItemQueries.byId(id)).dependOnDataSource().provide(dataSourceLayer)
       item    <- ZIO.fromOption(results.headOption).orElseFail(NotFoundException(s"Could not find item with id $id", id))
     } yield item
   }
 
 }
 
-trait Queries {
-  val ctx: MyZioContext[_]
+object ItemQueries {
 
-  import ctx._
+  import MyContext._
 
   // NOTE - if you put the type here you get a 'dynamic query' - which will never wind up working...
   implicit val itemSchemaMeta = schemaMeta[ItemRecord]("item")

@@ -34,7 +34,7 @@ object ClientExample extends App {
   def getItems(token: String): ZIO[EventLoopGroup with ChannelFactory, Serializable, Seq[Item]] =
     for {
       item  <- ZIO.fromEither(URL.fromString(itemsUrl))
-      res   <- Client.request(Method.GET -> item, List(Header.authorization(s"Bearer $token")))
+      res   <- Client.request(Request(endpoint = Method.GET -> item, headers = List(Header.authorization(s"Bearer $token"))))
       items <- ZIO.fromEither(res.content match {
         case CompleteData(data) => data.map(_.toChar).mkString.fromJson[Seq[Item]]
         case _                  => Left("Unexpected data type")

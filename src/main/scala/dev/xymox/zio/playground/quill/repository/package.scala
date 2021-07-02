@@ -12,6 +12,8 @@ package object repository {
 
   class MyZioContext[N <: NamingStrategy](override val naming: N) extends PostgresZioJdbcContext[N](naming) with InstantEncoding
 
+  object MyContext extends PostgresZioJdbcContext(SnakeCase) with InstantEncoding
+
   //noinspection DuplicatedCode
   trait InstantEncoding { this: JdbcRunContext[_, _] =>
     implicit val instantDecoder: Decoder[Instant] = decoder((index, row) => { row.getTimestamp(index).toInstant })

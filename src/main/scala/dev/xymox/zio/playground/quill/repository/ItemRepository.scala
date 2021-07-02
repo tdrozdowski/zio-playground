@@ -5,7 +5,7 @@ import zio._
 import zio.macros.accessible
 
 @accessible
-trait ItemRepository extends Queries {
+trait ItemRepository {
   def create(item: ItemRecord): Task[ItemRecord]
   def all: Task[Seq[ItemRecord]]
   def findById(id: Long): Task[ItemRecord]

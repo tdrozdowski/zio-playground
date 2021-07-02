@@ -1,3 +1,101 @@
+GET https://p2p.dev.nosidelines.io/api/v1/testDriveLocations
+
+<> 2021-07-01T233432.200.json
+
+###
+
+GET https://p2p.dev.nosidelines.io/api/v1/testDriveLocations
+
+<> 2021-07-01T233321.200.json
+
+###
+
+GET https://p2p.nosidelines.io/api/v1/testDriveLocations
+
+<> 2021-07-01T233308.200.json
+
+###
+
+GET https://p2p.nosidelines.io/api/v1/testDriveLocations
+
+<> 2021-07-01T205937.200.json
+
+###
+
+GET https://p2p.nosidelines.io/api/v1/testDriveLocations
+
+<> 2021-07-01T204906.200.json
+
+###
+
+GET https://p2p.nosidelinies.io/api/v1/testDriveLocations
+
+###
+
+GET http://localhost:8080/api/v1/invoices
+
+<> 2021-06-20T233226.200.json
+
+###
+
+GET http://localhost:8080/api/v1/other
+
+<> 2021-06-20T233218.200.json
+
+###
+
+GET http://localhost:8080/api/v1/invoices/1/items
+
+<> 2021-06-20T233213.500.txt
+
+###
+
+GET http://localhost:8080/api/v1/other
+
+<> 2021-06-20T233121.200.json
+
+###
+
+GET https://localhost:8080/api/v1/other
+
+###
+
+GET http://localhost:8080/api/v1/invoices/1/items
+
+<> 2021-06-20T233109.500.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoices
+
+<> 2021-06-20T233100.404.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoices
+
+<> 2021-06-20T232102.200.json
+
+###
+
+GET http://localhost:8080/api/v1/invoices
+
+<> 2021-06-20T231930.500.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoices
+
+<> 2021-06-20T231540.404.txt
+
+###
+
+GET http://localhost:8080/api/v1/invoices
+
+<> 2021-06-20T230536.500.txt
+
+###
+
 GET http://localhost:8080/api/v1/invoices
 
 <> 2021-06-20T224339.500.txt
@@ -346,129 +444,6 @@ GET http://localhost:8080/items/8
 Accept: application/json
 
 <> 2021-06-07T214519.200.json
-
-###
-
-GET http://localhost:8080/items/8
-Accept: application/json
-
-<> 2021-06-07T213803.200.json
-
-###
-
-GET http://localhost:8080/items/8
-Accept: application/json
-
-<> 2021-06-07T205336.200.json
-
-###
-
-GET http://localhost:8080/items
-Accept: application/json
-
-<> 2021-06-07T205326.200.json
-
-###
-
-POST http://localhost:8080/items
-Content-Type: application/json
-
-{
-  "name" : "Chainsaw",
-  "description" : "This is my ....buzz stick?",
-  "price" : 59.99
-}
-
-<> 2021-06-07T205320.200.json
-
-###
-
-POST http://localhost:8080/items
-Content-Type: application/json
-
-{
-  "name" : "Chainsaw",
-  "descriptiopn" : "This is my ....buzz stick?",
-  "price" : 59.99
-}
-
-<> 2021-06-07T205247.500.txt
-
-###
-
-GET http://localhost:8080/items/10
-Accept: application/json
-
-<> 2021-06-07T195549.404.txt
-
-###
-
-GET http://localhost:8080/items/10
-Accept: application/json
-
-<> 2021-06-06T224207.500.txt
-
-###
-
-GET http://localhost:8080/items/10
-Accept: application/json
-
-###
-
-GET http://localhost:8080/items/10
-Accept: application/json
-
-<> 2021-06-06T220906.500.txt
-
-###
-
-GET http://localhost:8080/items/10
-Accept: application/json
-
-###
-
-GET http://localhost:8080/items/10
-Accept: application/json
-
-###
-
-GET http://localhost:8080/items/1
-Accept: application/json
-
-<> 2021-06-06T213947.200.json
-
-###
-
-GET http://localhost:8080/items
-Accept: application/json
-
-<> 2021-06-06T213558.200.json
-
-###
-
-GET http://localhost:8080/items
-Accept: application/json
-
-<> 2021-06-06T213406.200.json
-
-###
-
-GET http://localhost:8080/items
-Accept: application/json
-
-<> 2021-06-06T212636.200.json
-
-###
-
-GET http://localhost:8080/hello?query=someValue
-
-<> 2021-05-30T221648.200.txt
-
-###
-
-GET http://localhost:8080/hello
-
-<> 2021-05-30T221645.200.txt
 
 ###
 
