@@ -52,7 +52,7 @@ object ZPureStateExample extends App {
   val withdrawalComputation: ZPure[Nothing, Any, AccountState, Any, AccountError, Unit] =
     safeWithdraw(10).provideState(AccountState(100, true))
 
-  val overdraft =
+  val overdraft: ZPure[Nothing, Any, AccountState, Any, AccountError, Unit] =
     safeWithdraw(500).provideState(AccountState(100, true))
 
   val updateAccountState: Either[AccountError, AccountState] =
@@ -61,11 +61,19 @@ object ZPureStateExample extends App {
   val attemptOverdraftState: Either[AccountError, AccountState] =
     (overdraft *> ZPure.get).runEither
 
+  def withdrawLog(amount: Int): ZPure[String, AccountState, AccountState, Any, AccountError, Unit] =
+    ZPure.log(s"Attemping to withdraw $amount") *> safeWithdraw(amount) <* ZPure.log(s"Withdrew amount: $amount")
+
+  val withdrawComputationLog: ZPure[String, AccountState, AccountState, Any, AccountError, Unit] = withdrawLog(10)
+
+  val log: Chunk[String] = withdrawComputationLog.runAll(AccountState(100, true))._1
+
   val program: ZIO[Console, Object, Unit] =
     for {
       _                <- putStrLn("Running withdrawal...")
       results          <- ZIO.fromEither(updateAccountState)
       _                <- putStrLn(s"Results: $results")
+      _                <- putStrLn(s"Withdraw log: $log")
       _                <- putStrLn("Attempt overdraft...")
       overdraftResults <- ZIO.fromEither(attemptOverdraftState)
       _                <- putStrLn(s"Overdraft results: $overdraftResults")
