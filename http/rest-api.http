@@ -1,0 +1,74 @@
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+  "username": "Foobar",
+  "password": "rabooF"
+}
+
+> {%
+client.global.set("auth_token", response.body);
+%}
+
+<> 2021-07-26T230844.200.txt
+
+###
+POST http://localhost:8080/items
+Content-Type: application/json
+Origin: http://localhost:8080
+Authorization: Bearer {{auth_token}}
+
+{
+  "name" : "Chainsaw",
+  "description" : "This is my ....buzz stick?",
+  "price" : 59.99
+}
+
+<> 2021-07-26T230857.200.json
+
+###
+GET http://localhost:8080/items/8
+Accept: application/json
+Origin: http://localhost:8080
+Authorization: Bearer {{auth_token}}
+
+
+<> 2021-07-26T230928.200.json
+<> 2021-07-26T230903.403.txt
+
+###
+GET http://localhost:8080/items
+Accept: application/json
+Origin: http://localhost:8080
+Authorization: Bearer {{auth_token}}
+
+<> 2021-07-26T230923.200.json
+
+###
+GET http://localhost:8080/metrics
+
+<> 2021-07-26T230948.200.txt
+
+###
+GET http://localhost:8080/jsonHello
+Accept: application/json
+
+###
+GET http://localhost:8080/hello
+
+###
+
+GET http://localhost:8080/hello?query=someValue
+
+GET http://localhost:8080/items
+
+###
+
+GET https://p2p.dev.nosidelines.io/api/v1/testDriveLocations
+
+<> 2021-07-01T233432.200.json
+<> 2021-07-01T233321.200.json
+<> 2021-07-01T233308.200.json
+<> 2021-07-01T205937.200.json
+<> 2021-07-01T204906.200.json
+

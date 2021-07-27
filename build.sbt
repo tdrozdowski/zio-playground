@@ -18,6 +18,7 @@ val zioConfigVersion  = "1.0.5"
 val tapirVersion      = "0.18.0-M11"
 val chimneyVersion    = "0.6.1"
 val sttpVersion       = "3.3.9"
+val zmxVersion        = "0.0.6"
 
 scalacOptions += "-Ymacro-annotations"
 
@@ -32,6 +33,7 @@ libraryDependencies ++= Seq(
   "dev.zio"                       %% "zio-config-typesafe"      % zioConfigVersion,
   "dev.zio"                       %% "zio-query"                % zQueryVersion,
   "dev.zio"                       %% "zio-schema"               % zioSchemaVersion,
+  "dev.zio"                       %% "zio-zmx"                  % zmxVersion,
   "io.github.kitlangton"          %% "zio-magic"                % "0.3.2",
   "dev.zio"                       %% "zio-optics"               % zioOpticsVersion,
   "io.d11"                        %% "zhttp"                    % zioHttpVersion,
