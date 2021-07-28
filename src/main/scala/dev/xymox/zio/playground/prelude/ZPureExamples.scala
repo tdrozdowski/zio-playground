@@ -7,6 +7,19 @@ import zio.prelude.{EState, State}
 
 import java.io.IOException
 
+/** ZPure is a 'pure' function - no side effects!
+  *
+  *  A ZPure is defined as: ZPure[+W, -S1, +S2, -R, +E, +A]
+  *  Which really means a function like: (R, S1) => (Chunk[W], Either[E, (S2, A)])
+  *
+  *  (From the forthcoming ZIO Prelude documentation...)
+  * The `ZPure` data type models four "capabilities" that a computation can have in addition to just producing a value of type `A`:
+  *
+  * - **Errors** - A `ZPure` computation can fail with an error of type `E` similar to an `Either`.
+  * - **Context** - A `ZPure` computation can require some environment of type `R` similar to a `Reader` data type.
+  * - **State** - A `ZPure` computation can update a state `S1` to a new state `S2` similar to a `State` data type.
+  * - **Logging** - A `ZPure` computation can maintain a log of type `W` similar to a `Writer` data type.
+  */
 object ZPureExamples extends App {
   case class AccountEnvironment(interestRate: Double)
 

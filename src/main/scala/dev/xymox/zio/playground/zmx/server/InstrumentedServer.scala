@@ -16,7 +16,7 @@ object InstrumentedServer extends App {
     InstrumentedEndpoints.index +++ InstrumentedEndpoints.metrics +++ InstrumentedEndpoints.statsd
 
   val startServer: ZIO[Any, Throwable, Nothing] =
-    Server.start(8080, endpoints).inject(StatsdClient.default, PrometheusClient.live)
+    Server.start(8081, endpoints).inject(StatsdClient.default, PrometheusClient.live)
 
   val program: ZIO[zio.ZEnv, IOException, Unit] =
     for {

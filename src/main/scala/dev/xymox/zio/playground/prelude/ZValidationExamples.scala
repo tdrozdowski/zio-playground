@@ -2,7 +2,7 @@ package dev.xymox.zio.playground.prelude
 
 import zio._
 import zio.console._
-import zio.prelude.ZValidation
+import zio.prelude.{Validation, ZValidation}
 
 object ZValidationExamples extends App {
 
@@ -16,6 +16,8 @@ object ZValidationExamples extends App {
       else
         ZValidation.fail(FieldError(fieldName, "was empty!")).log("empty string!")
 
+    Validation
+
     def validVIN(fieldName: String, value: String): ZValidation[String, FieldError, String] =
       value match {
         case VIN_REGEX(_*) => ZValidation.succeed(value).log(s"$fieldName with value $value is OK!")
@@ -27,8 +29,8 @@ object ZValidationExamples extends App {
 
   def validationExample = {
     val emptyValidation      = BasicValidations.nonEmptyString("email", "james@james.com")
-    val vinValidation        = BasicValidations.validVIN("vin", "WBAWL73589P473132")
-    val invalidVinValidation = BasicValidations.validVIN("vin2", "WBAWL73589P473132")
+    val vinValidation        = BasicValidations.validVIN("vin", "WBAWL73589P4731")
+    val invalidVinValidation = BasicValidations.validVIN("vin2", "WBAWL73589P4731")
     for {
       overallResults <- ZIO(ZValidation.validate(vinValidation, emptyValidation, invalidVinValidation))
       _              <- putStrLn(s"Validation results: $overallResults")

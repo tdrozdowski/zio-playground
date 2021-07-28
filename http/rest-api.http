@@ -47,6 +47,7 @@ Authorization: Bearer {{auth_token}}
 ###
 GET http://localhost:8080/metrics
 
+
 <> 2021-07-26T230948.200.txt
 
 ###

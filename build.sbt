@@ -4,10 +4,12 @@ version := "0.1"
 
 scalaVersion := "2.13.6"
 
+resolvers += "Sonatype OSS Snapshots" at "https://s01.oss.sonatype.org/content/repositories/snapshots"
+
 val zioVersion        = "1.0.9"
 val zioPreludeVersion = "1.0.0-RC5"
 val zioLoggingVersion = "0.5.8"
-val zioHttpVersion    = "1.0.0.0-RC17+12-2f7aa146-SNAPSHOT"
+val zioHttpVersion    = "1.0.0.0-RC17+25-895e6595-SNAPSHOT"
 val zioJsonVersion    = "0.1.5"
 val zioOpticsVersion  = "0.1.0"
 val zioSchemaVersion  = "0.0.5"
