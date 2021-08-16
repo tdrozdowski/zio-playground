@@ -3,9 +3,9 @@ package dev.xymox.zio.playground.zstack.service.item
 import dev.xymox.zio.playground.zstack.repository.{ItemRecord, ItemRepository}
 import io.scalaland.chimney.dsl.TransformerOps
 import zio.console.Console
-import zio.json.{DeriveJsonCodec, JsonCodec}
+import zio.json.{DeriveJsonCodec, DeriveJsonDecoder, DeriveJsonEncoder, JsonCodec, JsonDecoder, JsonEncoder}
 import zio.macros.accessible
-import zio.{Has, RLayer, Task}
+import zio.{Has, RLayer, Task, ZIO}
 
 import java.time.Instant
 import scala.language.implicitConversions
@@ -20,6 +20,8 @@ case class Item(id: Long, name: String, description: String, price: Double, crea
 object Item {
   implicit def fromItemRecord(record: ItemRecord): Item               = record.into[Item].withFieldRenamed(_.unitPrice, _.price).transform
   implicit def fromSeqItemRecord(records: Seq[ItemRecord]): Seq[Item] = records.map(fromItemRecord)
+  implicit val jsonEncoder: JsonEncoder[Item]                         = DeriveJsonEncoder.gen[Item]
+  implicit val jsonDecoder: JsonDecoder[Item]                         = DeriveJsonDecoder.gen[Item]
   implicit val codec: JsonCodec[Item]                                 = DeriveJsonCodec.gen[Item]
 }
 
@@ -31,6 +33,7 @@ trait ItemService {
 }
 
 object ItemService {
+  def all: ZIO[Has[ItemService], Throwable, Seq[Item]]                  = ZIO.serviceWith[ItemService](_.all)
   val layer: RLayer[Has[ItemRepository] with Console, Has[ItemService]] = (ItemServiceLive(_, _)).toLayer
 }
 

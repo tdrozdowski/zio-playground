@@ -17,7 +17,8 @@ val zQueryVersion     = "0.2.9"
 val quillVersion      = "3.7.1"
 val flywayVersion     = "7.9.1"
 val zioConfigVersion  = "1.0.5"
-val tapirVersion      = "0.18.0-M11"
+val tapirVersion      = "0.19.0-M4"
+val tapirRedocZio     = "0.19.0-M4+27-c49d6bf5+20210815-2211-SNAPSHOT"
 val chimneyVersion    = "0.6.1"
 val sttpVersion       = "3.3.9"
 val zmxVersion        = "0.0.6"
@@ -42,6 +43,11 @@ libraryDependencies ++= Seq(
   "io.getquill"                   %% "quill-jdbc-zio"           % quillVersion,
   "org.flywaydb"                   % "flyway-core"              % flywayVersion,
   "com.softwaremill.sttp.tapir"   %% "tapir-zio"                % tapirVersion,
+  "com.softwaremill.sttp.tapir"   %% "tapir-zio-http"           % tapirVersion,
+  "com.softwaremill.sttp.tapir"   %% "tapir-json-zio"           % tapirVersion,
+  "com.softwaremill.sttp.tapir"   %% "tapir-redoc-zio-http"     % tapirRedocZio,
+  "com.softwaremill.sttp.tapir"   %% "tapir-openapi-docs"       % tapirVersion,
+  "com.softwaremill.sttp.tapir"   %% "tapir-openapi-circe-yaml" % tapirVersion,
   "io.scalaland"                  %% "chimney"                  % chimneyVersion,
   "com.softwaremill.sttp.client3" %% "httpclient-backend-zio"   % sttpVersion,
   "com.github.jwt-scala"          %% "jwt-core"                 % "8.0.2",
