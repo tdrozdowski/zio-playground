@@ -14,6 +14,7 @@ import zio.{Has, URIO, ZIO}
 
 object TapirItemEndpoints {
 
+  // TODO - figure out how to handle errors here properly so it all ties together
   val itemsListing: Endpoint[Unit, Unit, Seq[Item], Any] =
     endpoint.in("items").out(jsonBody[Seq[Item]])
 
