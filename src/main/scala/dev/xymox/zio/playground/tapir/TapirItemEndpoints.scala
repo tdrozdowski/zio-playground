@@ -1,7 +1,6 @@
 package dev.xymox.zio.playground.tapir
 
 import dev.xymox.zio.playground.zstack.service.item.{Item, ItemService}
-import sttp.tapir._
 import sttp.tapir.docs.openapi.OpenAPIDocsInterpreter
 import sttp.tapir.generic.auto._
 import sttp.tapir.json.zio._
@@ -9,19 +8,23 @@ import sttp.tapir.openapi.OpenAPI
 import sttp.tapir.openapi.circe.yaml._
 import sttp.tapir.redoc.ziohttp.RedocZioHttp
 import sttp.tapir.server.ziohttp.ZioHttpInterpreter
+import sttp.tapir.ztapir._
 import zhttp.http.{Http, Request, Response, UResponse}
-import zio.{Has, URIO, ZIO}
+import zio.{Has, ZIO}
 
 object TapirItemEndpoints {
 
-  // TODO - figure out how to handle errors here properly so it all ties together
-  val itemsListing: Endpoint[Unit, Unit, Seq[Item], Any] =
-    endpoint.in("items").out(jsonBody[Seq[Item]])
+  val listingLogic: Unit => ZIO[Has[ItemService], String, Seq[Item]] = _ => ItemService.all().mapError(_.getMessage)
 
-  val wrapService: () => URIO[Has[ItemService], Either[Throwable, Seq[Item]]] = () => ItemService.all.either
+  val itemsListing: ZEndpoint[Unit, String, Seq[Item]] = endpoint
+    .in("items")
+    .out(jsonBody[Seq[Item]])
+    .errorOut(stringBody)
 
-  val zhttpApp: Http[Any, Throwable, Request, Response[Any, Throwable]] =
-    ZioHttpInterpreter().toHttp(itemsListing)(wrapService)
+  val serverEndpoint: ZServerEndpoint[Has[ItemService], Unit, String, Seq[Item]] = itemsListing.zServerLogic[Has[ItemService]](listingLogic)
+
+  val zhttpApp: Http[Has[ItemService], Throwable, Request, Response[Has[ItemService], Throwable]] =
+    ZioHttpInterpreter().toHttp(serverEndpoint)
 }
 
 object ItemDocs {

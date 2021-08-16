@@ -5,6 +5,7 @@ version := "0.1"
 scalaVersion := "2.13.6"
 
 resolvers += "Sonatype OSS Snapshots" at "https://s01.oss.sonatype.org/content/repositories/snapshots"
+resolvers += "Moar Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
 
 val zioVersion        = "1.0.9"
 val zioPreludeVersion = "1.0.0-RC5"
@@ -18,10 +19,10 @@ val quillVersion      = "3.7.1"
 val flywayVersion     = "7.9.1"
 val zioConfigVersion  = "1.0.5"
 val tapirVersion      = "0.19.0-M4"
-val tapirRedocZio     = "0.19.0-M4+27-c49d6bf5+20210815-2211-SNAPSHOT"
+val tapirRedocZio     = "0.19.0-M4+28-5e10c73b-SNAPSHOT"
 val chimneyVersion    = "0.6.1"
 val sttpVersion       = "3.3.9"
-val zmxVersion        = "0.0.6"
+val zmxVersion        = "0.0.6+9-94d44883-SNAPSHOT"
 
 scalacOptions += "-Ymacro-annotations"
 

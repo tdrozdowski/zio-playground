@@ -33,7 +33,7 @@ trait ItemService {
 }
 
 object ItemService {
-  def all: ZIO[Has[ItemService], Throwable, Seq[Item]]                  = ZIO.serviceWith[ItemService](_.all)
+  def all(): ZIO[Has[ItemService], Throwable, Seq[Item]]                = ZIO.serviceWith[ItemService](_.all)
   val layer: RLayer[Has[ItemRepository] with Console, Has[ItemService]] = (ItemServiceLive(_, _)).toLayer
 }
 
