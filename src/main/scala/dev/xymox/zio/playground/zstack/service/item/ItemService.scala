@@ -25,7 +25,6 @@ object Item {
   implicit val codec: JsonCodec[Item]                                 = DeriveJsonCodec.gen[Item]
 }
 
-@accessible
 trait ItemService {
   def create(request: CreateItemRequest): Task[Item]
   def all: Task[Seq[Item]]
@@ -33,7 +32,10 @@ trait ItemService {
 }
 
 object ItemService {
-  def all(): ZIO[Has[ItemService], Throwable, Seq[Item]]                = ZIO.serviceWith[ItemService](_.all)
+  def all(): ZIO[Has[ItemService], Throwable, Seq[Item]]                         = ZIO.serviceWith[ItemService](_.all)
+  def get(id: Long): ZIO[Has[ItemService], Throwable, Item]                      = ZIO.serviceWith[ItemService](_.get(id))
+  def create(request: CreateItemRequest): ZIO[Has[ItemService], Throwable, Item] = ZIO.serviceWith[ItemService](_.create(request))
+
   val layer: RLayer[Has[ItemRepository] with Console, Has[ItemService]] = (ItemServiceLive(_, _)).toLayer
 }
 
