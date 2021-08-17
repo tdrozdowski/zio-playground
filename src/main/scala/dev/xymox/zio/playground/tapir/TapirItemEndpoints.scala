@@ -22,15 +22,24 @@ object TapirItemEndpoints {
   val baseEndpoint: Endpoint[Unit, String, Unit, Any] = endpoint.errorOut(stringBody).in("items")
 
   val itemsListing: ZEndpoint[Unit, String, Seq[Item]] = baseEndpoint
+    .name("List Items")
+    .description("List all Items in the Database")
     .out(jsonBody[Seq[Item]])
+    .description("All the Items")
 
   val itemsById: ZEndpoint[Long, String, Item] = baseEndpoint
+    .name("Get Item")
+    .description("Given an ID for an Item, return it.")
     .in(path[Long](name = "id").description("The ID of the item you want."))
     .out(jsonBody[Item])
+    .description("The Item")
 
   val create: ZEndpoint[CreateItemRequest, String, Item] = baseEndpoint.post
+    .name("Create Item")
+    .description("Create a new Item in the database")
     .in(jsonBody[CreateItemRequest].description("Information needed to create an Item"))
     .out(jsonBody[Item])
+    .description("The Item")
 
   val listServerEndpoint: ZServerEndpoint[Has[ItemService], Unit, String, Seq[Item]]           = itemsListing.zServerLogic[Has[ItemService]](listingLogic)
   val getServerEndpoint: ZServerEndpoint[Has[ItemService], Long, String, Item]                 = itemsById.zServerLogic[Has[ItemService]](findByIdLogic)
