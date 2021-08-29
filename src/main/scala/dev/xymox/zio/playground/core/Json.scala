@@ -53,4 +53,5 @@ object AdvJsonConfig extends App {
 
   println(s"apple:\n${apple.toJsonPretty}")
   println(s"banana:\n${banana.toJson}")
+  println(s"bananaAST:\n${banana.toJsonAST.toOption.get}")
 }

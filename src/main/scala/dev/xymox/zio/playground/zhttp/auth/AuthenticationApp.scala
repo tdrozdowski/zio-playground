@@ -36,7 +36,7 @@ object AuthenticationApp extends RequestOps {
 
   // Authentication middleware
   // Takes in a Failing HttpApp and a Succeed HttpApp which are called based on Authentication success or failure
-  // For each request tries to read the `X-ACCESS-TOKEN` header
+  // For each request tries to read the `Authorization` header
   // Validates JWT Claim
   def authenticate[R, E](fail: HttpApp[R, E], success: JwtClaim => HttpApp[R, E]): HttpApp[R, E] = Http.flatten {
     Http
