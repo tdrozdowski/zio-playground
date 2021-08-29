@@ -22,7 +22,7 @@ val tapirVersion      = "0.19.0-M3"
 val tapirRedocZio     = "0.19.0-M4+29-716eab20-SNAPSHOT"
 val chimneyVersion    = "0.6.1"
 val sttpVersion       = "3.3.9"
-val zmxVersion        = "0.0.6+9-94d44883-SNAPSHOT"
+val zmxVersion        = "0.0.6+12-f6d4e368-SNAPSHOT"
 
 scalacOptions += "-Ymacro-annotations"
 

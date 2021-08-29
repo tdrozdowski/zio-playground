@@ -2,10 +2,12 @@ package dev.xymox.zio.playground.zstack.api
 
 import dev.xymox.zio.playground.zstack.repository.NotFoundException
 import dev.xymox.zio.playground.zstack.service.item.{CreateItemRequest, ItemService}
+import dev.xymox.zio.playground.zstack.zmx.ServiceMetrics
 import pdi.jwt.JwtClaim
 import zhttp.http._
 import zio.console._
 import zio.json._
+import zio.zmx.metrics.MetricsSyntax
 import zio.{Has, IO, ZIO}
 
 object ItemEndpoints extends RequestOps {
@@ -14,10 +16,10 @@ object ItemEndpoints extends RequestOps {
     Http
       .collectM[Request] {
         case Method.GET -> Root / "items"        =>
-          for {
+          (for {
             _     <- putStrLn(s"Validated claim: $jwtClaim")
             items <- ItemService.all
-          } yield Response.jsonString(items.toJson)
+          } yield Response.jsonString(items.toJson)) @@ ServiceMetrics.durationsList
         case Method.GET -> Root / "items" / id   =>
           for {
             _    <- putStrLn(s"Validated claim: $jwtClaim")
