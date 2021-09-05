@@ -1,0 +1,63 @@
+GET http://localhost:8080/docs
+
+<> 2021-09-05T005130.200.html
+
+###
+
+GET http://localhost:8080/items
+
+<> 2021-09-05T005125.200.json
+
+###
+
+GET http://localhost:8080/items
+
+<> 2021-09-05T004946.404.txt
+
+###
+
+GET http://localhost:8080/items
+
+<> 2021-09-05T004816.404.txt
+
+###
+
+GET http://localhost:8080/docs
+
+<> 2021-09-05T004657.200.html
+
+###
+
+GET http://localhost:8080/doc
+
+<> 2021-09-05T004650.404.txt
+
+###
+
+GET http://localhost:8080/doc/redoc.html
+
+<> 2021-09-05T004640.404.txt
+
+###
+
+GET http://localhost:8080/docs/redoc.html
+
+<> 2021-09-05T004536.404.txt
+
+###
+
+GET http://localhost:8080/items
+
+<> 2021-09-05T004520.404.txt
+
+###
+
+GET http://localhost:8080/items
+Accept: application/json
+Origin: http://localhost:8080
+Authorization: Bearer {{auth_token}}
+
+<> 2021-09-05T004500.404.txt
+
+###
+

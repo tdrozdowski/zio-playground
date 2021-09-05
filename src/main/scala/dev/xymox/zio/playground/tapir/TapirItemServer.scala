@@ -11,7 +11,7 @@ import zio.magic._
 
 object TapirItemServer extends App {
 
-  val endpoints: Http[Has[ItemService], Throwable, Request, Response[Has[ItemService], Throwable]] = ItemDocs.redocApp +++ TapirItemEndpoints.itemsHttpApp
+  val endpoints: Http[Has[ItemService], Throwable, Request, Response[Has[ItemService], Throwable]] = ItemDocs.redocApp <> TapirItemEndpoints.itemsHttpApp
 
   val program: ZIO[Any, Throwable, Nothing] = Server
     .start(8080, endpoints)
