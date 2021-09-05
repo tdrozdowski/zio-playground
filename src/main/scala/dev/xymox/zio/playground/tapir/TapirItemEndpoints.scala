@@ -1,17 +1,19 @@
 package dev.xymox.zio.playground.tapir
 
 import dev.xymox.zio.playground.zstack.service.item.{CreateItemRequest, Item, ItemService}
+import sttp.capabilities.zio.ZioStreams
 import sttp.tapir.Endpoint
 import sttp.tapir.docs.openapi.OpenAPIDocsInterpreter
 import sttp.tapir.generic.auto._
 import sttp.tapir.json.zio._
 import sttp.tapir.openapi.OpenAPI
 import sttp.tapir.openapi.circe.yaml._
-import sttp.tapir.redoc.ziohttp.RedocZioHttp
+import sttp.tapir.redoc.Redoc
+import sttp.tapir.server.ServerEndpoint
 import sttp.tapir.server.ziohttp.ZioHttpInterpreter
 import sttp.tapir.ztapir._
-import zhttp.http.{Http, Request, Response, UResponse}
-import zio.{Has, ZIO}
+import zhttp.http.{Http, Request, Response}
+import zio.{Has, RIO, Task, ZIO}
 
 object TapirItemEndpoints {
   // TODO - figure out auth; add CORS; how to group endpoints for redoc/openapi
@@ -46,13 +48,20 @@ object TapirItemEndpoints {
   val getServerEndpoint: ZServerEndpoint[Has[ItemService], Long, String, Item]                 = itemsById.zServerLogic[Has[ItemService]](findByIdLogic)
   val createServerEndpoint: ZServerEndpoint[Has[ItemService], CreateItemRequest, String, Item] = create.zServerLogic[Has[ItemService]](createLogic)
 
-  val allEndpoints = List(listServerEndpoint, getServerEndpoint, createServerEndpoint)
+  // NOTE - because Tapir ZServerEndpoint gives us an R type with ZioStreams with WebSockets and the zio-http interpreter
+  // doesn't (yet) support the WebSockets capability - we have to cast this down and use the EffectType type alias to help us
+  // mash this into shape.
+  type EffectType[A] = RIO[Has[ItemService], A]
+
+  val allEndpoints =
+    List(listServerEndpoint, getServerEndpoint, createServerEndpoint)
+      .asInstanceOf[List[ServerEndpoint[_, _, _, ZioStreams, EffectType]]]
 
   val itemsHttpApp: Http[Has[ItemService], Throwable, Request, Response[Has[ItemService], Throwable]] =
     ZioHttpInterpreter().toHttp(allEndpoints)
 }
 
 object ItemDocs {
-  val openApi: OpenAPI                                 = OpenAPIDocsInterpreter().serverEndpointsToOpenAPI(TapirItemEndpoints.allEndpoints, "Items API", "1.0")
-  val redocApp: Http[Any, Nothing, Request, UResponse] = new RedocZioHttp(title = "Items API", yaml = openApi.toYaml).endpoint
+  val openApi: OpenAPI                                                  = OpenAPIDocsInterpreter().serverEndpointsToOpenAPI(TapirItemEndpoints.allEndpoints, "Items API", "1.0")
+  val redocApp: Http[Any, Throwable, Request, Response[Any, Throwable]] = ZioHttpInterpreter().toHttp(Redoc[Task](title = "Items API", yaml = openApi.toYaml))
 }
