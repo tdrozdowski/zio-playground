@@ -1,29 +1,29 @@
 package dev.xymox.zio.playground.quill.repository
 
 import io.getquill.context.ZioJdbc.QuillZioExt
+import io.getquill.context.qzio.ImplicitSyntax.Implicit
 import zio._
 import zio.blocking.Blocking
 
 import java.io.Closeable
 import javax.sql.DataSource
 
-case class ItemRepositoryLive(dataSource: DataSource with Closeable, blocking: Blocking.Service) extends ItemRepository {
-  val dataSourceLayer: Has[DataSource with Closeable] with Has[Blocking.Service] = Has.allOf[DataSource with Closeable, Blocking.Service](dataSource, blocking)
-
+case class ItemRepositoryLive(dataSource: DataSource with Closeable) extends ItemRepository {
   import MyContext._
+  implicit val env = Implicit(Has(dataSource))
 
   override def create(item: ItemRecord): Task[ItemRecord] = transaction {
     for {
       _     <- run(ItemQueries.insertItem(item))
       items <- run(ItemQueries.itemsQuery)
     } yield items.headOption.getOrElse(throw new Exception("Insert failed!"))
-  }.dependOnDataSource().provide(dataSourceLayer)
+  }.implicitDS
 
-  override def all: Task[Seq[ItemRecord]] = run(ItemQueries.itemsQuery).dependOnDataSource().provide(dataSourceLayer)
+  override def all: Task[Seq[ItemRecord]] = run(ItemQueries.itemsQuery).implicitDS
 
   override def findById(id: Long): Task[ItemRecord] = {
     for {
-      results <- run(ItemQueries.byId(id)).dependOnDataSource().provide(dataSourceLayer)
+      results <- run(ItemQueries.byId(id)).implicitDS
       item    <- ZIO.fromOption(results.headOption).orElseFail(NotFoundException(s"Could not find item with id $id", id))
     } yield item
   }

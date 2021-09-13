@@ -16,7 +16,7 @@ package object repository {
 
   //noinspection DuplicatedCode
   trait InstantEncoding { this: JdbcRunContext[_, _] =>
-    implicit val instantDecoder: Decoder[Instant] = decoder((index, row) => { row.getTimestamp(index).toInstant })
+    implicit val instantDecoder: Decoder[Instant] = decoder((index, row, _) => { row.getTimestamp(index).toInstant })
     implicit val instantEncoder: Encoder[Instant] = encoder(Types.TIMESTAMP, (idx, value, row) => row.setTimestamp(idx, Timestamp.from(value)))
   }
 
