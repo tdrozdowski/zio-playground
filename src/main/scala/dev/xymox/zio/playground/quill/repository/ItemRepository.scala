@@ -1,9 +1,9 @@
 package dev.xymox.zio.playground.quill.repository
 
-import dev.xymox.zio.playground.quill.ZioQuillContext.QDataSource
-import io.getquill.context.ZioJdbc.QDataSource
 import zio._
 import zio.macros.accessible
+
+import javax.sql.DataSource
 
 @accessible
 trait ItemRepository {
@@ -13,5 +13,5 @@ trait ItemRepository {
 }
 
 object ItemRepository {
-  val layer: URLayer[QDataSource, Has[ItemRepository]] = (ItemRepositoryLive(_)).toLayer
+  val layer: URLayer[Has[DataSource], Has[ItemRepository]] = (ItemRepositoryLive(_)).toLayer
 }

@@ -4,6 +4,8 @@ import io.getquill.context.ZioJdbc.QDataSource
 import zio._
 import zio.macros.accessible
 
+import javax.sql.DataSource
+
 @accessible
 trait ItemRepository {
   def create(item: ItemRecord): Task[ItemRecord]
@@ -12,5 +14,5 @@ trait ItemRepository {
 }
 
 object ItemRepository {
-  val layer: URLayer[QDataSource, Has[ItemRepository]] = (ItemRepositoryLive(_, _)).toLayer
+  val layer: URLayer[Has[DataSource], Has[ItemRepository]] = (ItemRepositoryLive(_)).toLayer
 }

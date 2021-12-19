@@ -1,16 +1,14 @@
 package dev.xymox.zio.playground.zstack.repository
 
 import dev.xymox.zio.playground.zstack.zmx.ServiceMetrics
-import io.getquill.context.ZioJdbc.QuillZioExt
+import io.getquill.context.qzio.ImplicitSyntax.{Implicit, ImplicitSyntaxOps}
 import zio._
-import zio.blocking.Blocking
 import zio.zmx.metrics._
 
-import java.io.Closeable
 import javax.sql.DataSource
 
-case class ItemRepositoryLive(dataSource: DataSource with Closeable, blocking: Blocking.Service) extends ItemRepository {
-  val dataSourceLayer: Has[DataSource with Closeable] with Has[Blocking.Service] = Has.allOf[DataSource with Closeable, Blocking.Service](dataSource, blocking)
+case class ItemRepositoryLive(dataSource: DataSource) extends ItemRepository {
+  implicit val env: Implicit[Has[DataSource]] = Implicit(Has(dataSource))
 
   import MyContext._
 
@@ -20,13 +18,13 @@ case class ItemRepositoryLive(dataSource: DataSource with Closeable, blocking: B
       items   <- run(ItemQueries.itemsQuery)
       created <- ZIO.fromOption(items.headOption).orElseFail(new Exception("Cannot find after create?")) @@ ServiceMetrics.createCountAll
     } yield created
-  }.dependOnDataSource().provide(dataSourceLayer)
+  }.implicitly
 
-  override def all: Task[Seq[ItemRecord]] = run(ItemQueries.itemsQuery).dependOnDataSource().provide(dataSourceLayer) @@ ServiceMetrics.listCountAll
+  override def all: Task[Seq[ItemRecord]] = run(ItemQueries.itemsQuery).implicitly @@ ServiceMetrics.listCountAll
 
   override def findById(id: Long): Task[ItemRecord] = {
     for {
-      results <- run(ItemQueries.byId(id)).dependOnDataSource().provide(dataSourceLayer)
+      results <- run(ItemQueries.byId(id)).implicitly
       item    <- ZIO.fromOption(results.headOption).orElseFail(NotFoundException(s"Could not find item with id $id", id)) @@ ServiceMetrics.listCountAll
     } yield item
   }

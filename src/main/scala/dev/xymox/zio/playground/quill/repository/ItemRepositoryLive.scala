@@ -1,14 +1,11 @@
 package dev.xymox.zio.playground.quill.repository
 
-import io.getquill.context.ZioJdbc.QuillZioExt
-import io.getquill.context.qzio.ImplicitSyntax.Implicit
+import io.getquill.context.qzio.ImplicitSyntax.{Implicit, ImplicitSyntaxOps}
 import zio._
-import zio.blocking.Blocking
 
-import java.io.Closeable
 import javax.sql.DataSource
 
-case class ItemRepositoryLive(dataSource: DataSource with Closeable) extends ItemRepository {
+case class ItemRepositoryLive(dataSource: DataSource) extends ItemRepository {
   import MyContext._
   implicit val env = Implicit(Has(dataSource))
 
@@ -17,13 +14,13 @@ case class ItemRepositoryLive(dataSource: DataSource with Closeable) extends Ite
       _     <- run(ItemQueries.insertItem(item))
       items <- run(ItemQueries.itemsQuery)
     } yield items.headOption.getOrElse(throw new Exception("Insert failed!"))
-  }.implicitDS
+  }.implicitly
 
-  override def all: Task[Seq[ItemRecord]] = run(ItemQueries.itemsQuery).implicitDS
+  override def all: Task[Seq[ItemRecord]] = run(ItemQueries.itemsQuery).implicitly
 
   override def findById(id: Long): Task[ItemRecord] = {
     for {
-      results <- run(ItemQueries.byId(id)).implicitDS
+      results <- run(ItemQueries.byId(id)).implicitly
       item    <- ZIO.fromOption(results.headOption).orElseFail(NotFoundException(s"Could not find item with id $id", id))
     } yield item
   }
